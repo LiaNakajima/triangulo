@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Laboratório 2 - Filtragem de Imagens</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Relatório de Atividades</h1>
+        <h2>Laboratório 2: Filtragem de Imagens</h2>
+        <p>Disciplina: ESZI032 – Processamento de Vídeo (2024.3)</p>
+    </header>
+    
+    <main>
+        <section>
+            <h2>1. Introdução</h2>
+            <p>Este relatório documenta as atividades do Laboratório 2, focadas na implementação de filtragem de imagens utilizando os seguintes filtros do OpenCV: <strong>blur()</strong>, <strong>GaussianBlur()</strong>, <strong>medianBlur()</strong>, e <strong>bilateralFilter()</strong>. As imagens utilizadas foram capturadas no Laboratório 1.</p>
+        </section>
+
+        <section>
+            <h2>2. Fundamentos Teóricos</h2>
+            <p>Os principais filtros utilizados neste laboratório atuam suavizando a imagem de maneiras distintas:</p>
+            <ul>
+                <li><strong>blur()</strong>: Filtro de média simples que suaviza a imagem calculando a média dos pixels dentro de uma janela definida.</li>
+                <li><strong>GaussianBlur()</strong>: Filtro gaussiano que aplica um filtro de média ponderada com base em uma função gaussiana, reduzindo ruídos.</li>
+                <li><strong>medianBlur()</strong>: Aplica uma filtragem mediana, eficaz para remoção de ruídos como "sal e pimenta".</li>
+                <li><strong>bilateralFilter()</strong>: Filtro bilateral que suaviza enquanto preserva as bordas da imagem.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. Materiais e Métodos</h2>
+            <p>Para a parte experimental, foi solicitado o uso das imagens capturadas no Laboratório 1. O procedimento foi dividido em três partes:</p>
+            <ul>
+                <li><strong>Parte 1:</strong> Aplicação dos filtros em imagens com diferentes tamanhos de kernel (3x3, 5x5, 7x7, 11x11) e análise dos resultados.</li>
+                <li><strong>Parte 2:</strong> Repetição do procedimento com a adição de ruído "sal-e-pimenta".</li>
+                <li><strong>Parte 3:</strong> Implementação de um programa que aplica filtros em tempo real utilizando a webcam, com possibilidade de salvar as imagens filtradas.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>4. Resultados e Análises</h2>
+            <h3>4.1 Resultados das Filtragens (Parte 1)</h3>
+            <p>Abaixo estão os resultados das filtragens aplicadas à imagem original com diferentes tamanhos de kernel. Cada imagem foi salva no formato .jpg.</p>
+
+            <div class="image-grid">
+                <figure>
+                    <img src="grupo_triangulo.jpeg" alt="Imagem original">
+                    <figcaption>Imagem Original</figcaption>
+                </figure>
+                <figure>
+                    <img src="Homogeneous_Blur_3x3.jpg" alt="Blur 3x3">
+                    <figcaption>Filtro Blur 3x3</figcaption>
+                </figure>
+                <figure>
+                    <img src="Gaussian_Blur_3x3.jpg" alt="Gaussian 3x3">
+                    <figcaption>Filtro Gaussian 3x3</figcaption>
+                </figure>
+                <figure>
+                    <img src="Median_Blur_3x3.jpg" alt="Median 3x3">
+                    <figcaption>Filtro Median 3x3</figcaption>
+                </figure>
+                <figure>
+                    <img src="Bilateral_Blur_3x3.jpg" alt="Bilateral 3x3">
+                    <figcaption>Filtro Bilateral 3x3</figcaption>
+                </figure>
+            </div>
+
+            <h3>4.2 Resultados com Ruído Sal-e-Pimenta (Parte 2)</h3>
+            <p>A seguir, apresentamos as imagens resultantes após a aplicação de ruído "sal-e-pimenta" e filtragem com diferentes kernels.</p>
+
+            <div class="image-grid">
+                <figure>
+                    <img src="noisy_image.jpg" alt="Imagem com Ruído">
+                    <figcaption>Imagem com Ruído Sal-e-Pimenta</figcaption>
+                </figure>
+                <figure>
+                    <img src="homogeneous_blur.jpg" alt="Blur com Ruído">
+                    <figcaption>Filtro Blur com Ruído</figcaption>
+                </figure>
+                <figure>
+                    <img src="gaussian_blur.jpg" alt="Gaussian com Ruído">
+                    <figcaption>Filtro Gaussian com Ruído</figcaption>
+                </figure>
+            </div>
+
+            <h3>4.3 Filtragem em Tempo Real (Parte 3)</h3>
+            <p>Implementamos um programa que captura a imagem da webcam e aplica filtragem em tempo real. A tecla <strong>[s]</strong> permite salvar a imagem processada em formato .jpg.</p>
+        </section>
+
+        <section>
+            <h2>5. Conclusões e Comentários Finais</h2>
+            <p>Com base nos resultados obtidos, foi possível verificar que o aumento no tamanho do kernel provoca maior suavização na imagem, mas pode resultar em perda de detalhes. Além disso, o filtro bilateral se mostrou mais eficiente para preservar as bordas, enquanto o filtro mediano teve um melhor desempenho na remoção de ruídos "sal-e-pimenta".</p>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>Referências:</strong> OpenCV Tutorials: Smoothing Images. Disponível em: <a href="https://docs.opencv.org/4.x/dc/dd3/tutorial_gausian_median_blur_bilateral_filter.html" target="_blank">https://docs.opencv.org/4.x/dc/dd3/tutorial_gausian_median_blur_bilateral_filter.html</a></p>
+    </footer>
+</body>
+</html>

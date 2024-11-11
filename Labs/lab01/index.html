@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Relatório do Laboratório 1</title>
+
+    <style>h3{margin-top: 1.5em;}</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cmake.min.js"></script>
+    <script>
+      async function load_code()
+      {
+        promise_img = fetch("foto.cpp");
+        promise_vid = fetch("video.cpp");
+        promise_cmk = fetch("CMakeLists.txt");
+
+        response = await promise_img;
+        code = await response.text();
+        document.getElementById("code-img").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+
+        response = await promise_vid;
+        code = await response.text();
+        document.getElementById("code-vid").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+        
+        response = await promise_cmk;
+        code = await response.text();
+        document.getElementById("code-cmk").innerHTML = hljs.highlight(code, {language: "cmake"}).value;
+      }
+    </script>
+  </head>
+  <body style="margin-left: 10%;margin-right: 10%;" onload="load_code();">
+    <h1>Relatório do Laboratório 1</h1>
+
+    <h2>1. Introdução</h2>
+    <p>Este relatório descreve a atividade introdutória de processamento de vídeos e imagens utilizando a biblioteca OpenCV e a linguagem C++. A atividade teve como principal objetivo proporcionar um entendimento básico do OpenCV, explorando comandos para visualização e gravação de mídia e manipulação de arquivos.</p>
+    
+    <h2>2. Fundamentos básicos</h2>
+    <p>O processamento de mídia consiste em receber uma mídia como entrada, realizar alguma operação sobre ela e então devolver a mídia processada. Uma mídia pode ser um vídeo ou uma imagem, e pode provir de ou ser enviada a um arquivo ou dispositivo (câmera, filmadora, monitor, projetor, etc). O tipo de mídia da entrada pode ser diferente do tipo da saída.</p>
+    <p>Fundamentos utilizando a biblioteca OpenCV e a linguagem C++</p>
+    <ol>
+      <li>Leitura, Exibição e Escrita de Imagens</li>
+      <ul>
+          <li><strong>Leitura de Imagem:</strong> A função <code>imread()</code> é utilizada para carregar uma imagem de um arquivo. O caminho da imagem é especificado como um argumento, e ela é armazenada como uma matriz (array multidimensional) em que cada valor representa um pixel.</li>
+          <li><strong>Exibição de Imagem:</strong> A função <code>imshow()</code> permite exibir a imagem em uma janela. Um nome para a janela é passado como argumento, junto com a imagem a ser exibida.</li>
+          <li><strong>Escrita de Imagem:</strong> A função <code>imwrite()</code> possibilita salvar a imagem processada em um arquivo. O caminho de destino e a imagem a ser salva são os principais parâmetros desta função.</li>
+      </ul>
+  
+      <li>Leitura e Gravação de Vídeos</li>
+      <ul>
+          <li><strong>Leitura de Vídeo:</strong> Para ler vídeos, utiliza-se a classe <code>VideoCapture</code>. Ela permite abrir arquivos de vídeo ou capturar diretamente da câmera. A função <code>VideoCapture read()</code> é usada para capturar cada quadro do vídeo.</li>
+          <li><strong>Exibição de Vídeo:</strong> Assim como as imagens, vídeos podem ser exibidos utilizando <code>imshow()</code>, passando cada quadro em sequência.</li>
+          <li><strong>Gravação de Vídeo:</strong> A classe <code>VideoWriter</code> permite gravar vídeos em um arquivo. Parâmetros como o nome do arquivo de saída, o codec, a taxa de quadros e o tamanho dos quadros são especificados ao criar o objeto <code>VideoWriter</code>.</li>
+      </ul>
+    </ol>
+
+    
+    <h2>3. Materiais e Métodos</h2>
+    <p>Para realizar a atividade, utilizamos os seguintes recursos:</p>
+    <ul>
+      <li>C++: Linguagem de programção utilizada para desenvolver os programas</li>
+      <li>OpenCV: Biblioteca <i>open source</i> de visão computacional</li>
+      <li>CMake: Ferramenta de automação de compilação</li>
+      <li><a href="https://convertio.co/pt/">Convertio</a>: Ferramenta online de conversão de vídeo</li>
+      <li>Webcam: Utilizada para capturar as imagens e vídeos</li>
+      <li>Editor de Fotos do celular: Utilizado para fazer a montagem dos avatares</li>
+    </ul>
+    <p>Após nos familiarizarmos com as rotinas do OpenCV, optamos por desenvolver dois programas distintos, uma para captura de vídeo e outro para captura de imagem.</p>
+    <p>O programa de captura de imagem inicialmente exibe uma prévia da webcam. Quando o usuário pressiona a tecla de espaço, o programa tira uma foto a cada 0,5 segundos, até um total de 5 fotos, e então as salva como arquivos .jpg.</p>
+    <p>Código Fonte:</p>
+    <pre class="theme-atom-one-light"><code id="code-img" class="hljs"></code></pre>
+    <p>O programa de captura de vídeo, de forma similar, também inicia com uma prévia da webcam. Quando o usuário pressiona a tecla de espaço, o programa grava um vídeo de 5 segundos e então o salva como arquivo .avi.</p>
+    <p>Código Fonte:</p>
+    <pre class="theme-atom-one-light"><code id="code-vid" class="hljs"></code></pre>
+    <p>Para ambos os programas utilizamos o seguinte arquivo CMakeLists:</p>
+    <pre class="theme-atom-one-light"><code id="code-cmk" class="hljs"></code></pre>
+    
+    <h2>4. Resultados e Análises</h2>
+    <p>Utilizando os programas desenvolvidos e seguindo o roteiro dado, obtivemos os seguintes resultados:</p>
+    
+    <h3 style="margin-top: 1em;">Foto geral com os integrantes do grupo</h3>
+    <image src="foto_grupo.jpg"></image>
+    
+    <h3>Foto-montagem dos avatares</h3>
+    <image src="grupo_avatar.png"></image>
+    
+    <h3>Vídeo de objeto com mudanças lentas de movimento</h3>
+    <video controls height="480" width="640">
+      <source src="objeto_devagar.mp4" type="video/mp4">
+    </video>
+    
+    <h3>Vídeo de objeto com mudanças rápidas de movimento</h3>
+    <video controls height="480" width="640">
+      <source src="objeto_rapido.mp4" type="video/mp4">
+    </video>
+    
+    <h3>Pessoa com mudanças lentas de movimento</h3>
+    <video controls height="480" width="640">
+      <source src="pessoa_devagar.mp4" type="video/mp4">
+    </video>
+    
+    <h3>Pessoa com mudanças rápidas de movimento</h3>
+    <video controls height="480" width="640">
+      <source src="pessoa_rapido.mp4" type="video/mp4">
+    </video>
+    
+    <p style="margin-top: 1.5em;">Observando as capturas, percebemos que as imagens ficaram com uma resolução abaixo da que estamos acostumados, possivelmente por conta da qualidade do sensor da webcam. Além disso, os vídeos com movimentos rápidos apresentaram um aspecto <i>borrado</i>, porém não sabemos dizer se isto se deve ao sensor da webcam ou à nossa escolha de taxa de quadros.</p>
+
+    <h2>5. Conclusões e Comentários Finais </h2>
+    <p>Consideramos que a atividade foi bem sucedida em explorar o básico sobre o funcionamento da biblioteca OpenCV, além de nos familiarizar com o ambiente de desenvolvimento da linguagem C++ em conjunto com o CMake.</p>
+    
+  </body>
+</html>

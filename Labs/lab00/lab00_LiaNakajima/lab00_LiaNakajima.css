@@ -1,0 +1,74 @@
+/* Estilos globais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Estilos de cabeçalho */
+header h1 {
+    color: #333;
+    font-size: 28px;
+}
+
+/* Estilos de imagem */
+.photo-section {
+    margin-top: 20px;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.photo-section p {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Estilos de vídeo */
+.video-section {
+    margin-top: 30px;
+}
+
+video {
+    width: 100%;
+    max-width: 700px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* Estilos de áudio */
+.audio-section {
+    margin-top: 30px;
+}
+
+audio {
+    width: 100%;
+    max-width: 700px;
+}
+
+/* Estilos de rodapé */
+footer {
+    margin-top: 40px;
+    color: #888;
+    font-size: 14px;
+}

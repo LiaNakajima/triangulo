@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 2.8)
+project( Lab01 )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( foto foto.cpp )
+add_executable( video video.cpp )
+target_link_libraries( foto ${OpenCV_LIBS} )
+target_link_libraries( video ${OpenCV_LIBS} )

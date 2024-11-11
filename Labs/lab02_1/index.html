@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Relatório do Laboratório 2</title>
+
+    <style>h3{margin-top: 1.5em;}</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cmake.min.js"></script>
+    <script>
+      async function load_code()
+      {
+        promise_filtro_media = fetch("filtro_media.cpp");
+        promise_filtro_gaussiano = fetch("filtro_gaussiano.cpp");
+        promise_filtro_mediana = fetch("filtro_mediana.cpp");
+        promise_filtro_bilateral = fetch("filtro_bilateral.cpp");
+        promise_filtro_camera = fetch("filtro_camera.cpp");
+        promise_ruido_sal_e_pimenta = fetch("ruido_sal_e_pimenta.cpp");
+        promise_cmk = fetch("CMakeLists.txt");
+
+        response = await promise_filtro_media;
+        code = await response.text();
+        document.getElementById("code-media").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+
+        response = await promise_filtro_gaussiano;
+        code = await response.text();
+        document.getElementById("code-gaussiano").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+
+        response = await promise_filtro_mediana;
+        code = await response.text();
+        document.getElementById("code-mediana").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+
+        response = await promise_filtro_bilateral;
+        code = await response.text();
+        document.getElementById("code-bilateral").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+
+        response = await promise_filtro_camera;
+        code = await response.text();
+        document.getElementById("code-camera").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+
+        response = await promise_ruido_sal_e_pimenta;
+        code = await response.text();
+        document.getElementById("code-ruido").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+        
+        response = await promise_cmk;
+        code = await response.text();
+        document.getElementById("code-cmk").innerHTML = hljs.highlight(code, {language: "cmake"}).value;
+      }
+    </script>
+  </head>
+  <body style="margin-left: 10%;margin-right: 10%;" onload="load_code();">
+    <h1>Relatório do Laboratório 2</h1>
+
+    <h2>1. Introdução</h2>
+    <p>A filtragem de imagens consiste em aplicar operações matemáticas que modificam os valores dos pixels com base nos valores de seus vizinhos, 
+      promovendo a redução de ruídos ou o realce de bordas. Para entender, na prática, como os diferentes tipos de filtros e o tamanho do kernel 
+      (a matriz que define a vizinhança usada na filtragem) afetam o resultado final da imagem processada vamos o estudar os quatro tipos principais 
+      de filtros de suavização: média, gaussiano, mediana, e bilateral, por meio da biblioteca OpenCV..]
+    </p>
+    
+    <h2>2. Fundamentos básicos</h2>
+    <p>A filtragem de imagens é uma técnica essencial no processamento de imagens para suavização de ruídos, realce de detalhes ou remoção de imperfeições. 
+      No laboratório, foram explorados quatro tipos principais de filtros, implementados por meio da biblioteca OpenCV:</p>
+    <ol>
+      <li>blur() (Filtro de Média):</li>
+      <p>O filtro de média, implementado pela função blur(), calcula a média dos pixels em uma vizinhança definida por um kernel (geralmente uma matriz quadrada), 
+        substituindo o valor do pixel central pela média. Este filtro suaviza a imagem de forma uniforme, reduzindo os ruídos de alta frequência, mas também causando 
+        uma leve desfocagem geral.</p>
+  
+      <li>GaussianBlur() (Filtro Gaussiano):</li>
+      <p>O filtro gaussiano é uma forma aprimorada de suavização que utiliza uma função gaussiana para ponderar os pixels na vizinhança. A suavização é mais intensa no 
+        centro da vizinhança e diminui gradualmente em direção às bordas do kernel, resultando em uma suavização mais natural e menos agressiva do que o filtro de média. 
+        A função GaussianBlur() permite ajustar a variância (sigma), influenciando o grau de suavização.</p>
+
+      <li>medianBlur() (Filtro Mediano):</li>
+      <p>A função medianBlur() substitui o valor de cada pixel pelo valor mediano dos pixels na vizinhança. Este filtro é particularmente eficaz na remoção de ruídos do 
+        tipo sal-e-pimenta, preservando melhor as bordas em comparação com outros tipos de suavização. Ele é amplamente utilizado quando a imagem contém esse tipo 
+        específico de ruído.</p>
+
+      <li>bilateralFilter() (Filtro Bilateral):s</li>
+      <p>O filtro bilateral é uma técnica avançada que suaviza a imagem sem perder as bordas. Ele considera tanto a proximidade espacial dos pixels quanto a diferença de 
+        intensidade entre eles, suavizando apenas as áreas que são semelhantes em valor, mantendo bordas nítidas. A função bilateralFilter() é frequentemente usada em 
+        aplicações onde a preservação de detalhes é essencial.</p>
+    </ol>
+
+    <p>
+      Esses filtros foram aplicados com diferentes tamanhos de kernel (3x3, 5x5, 7x7, e 11x11) para analisar o impacto da suavização em imagens com e sem ruído. 
+      Cada método oferece vantagens específicas dependendo do tipo de ruído e da necessidade de preservação de detalhes, tornando a compreensão dessas técnicas 
+      crucial para o processamento eficiente de imagens.
+    </p>
+    
+    <h2>3. Materiais e Métodos</h2>
+    <p>Para realizar a atividade, utilizamos os seguintes recursos:</p>
+    <ul>
+      <li>C++: Linguagem de programção utilizada para desenvolver os programas</li>
+      <li>OpenCV: Biblioteca <i>open source</i> de visão computacional</li>
+      <li>CMake: Ferramenta de automação de compilação</li>
+      <li><a href="https://convertio.co/pt/">Convertio</a>: Ferramenta online de conversão de vídeo</li>
+      <li>Webcam: Utilizada para capturar as imagens e vídeos</li>
+    </ul>
+
+    <p>Após nos familiarizarmos com as rotinas do OpenCV, optamos por desenvolver dois programas distintos, para cada tipo de filtro de imagem.</p>
+    <p><b>Filtro de média</b></p>
+    <p>Código Fonte:</p>
+    <pre class="theme-atom-one-light"><code id="code-media" class="hljs"></code></pre>
+
+    <p><b>Filtro de gaussiano</b></p>
+    <p>Código Fonte:</p>
+    <pre class="theme-atom-one-light"><code id="code-gaussiano" class="hljs"></code></pre>
+
+    <p><b>Filtro de mediana</b></p>
+    <p>Código Fonte:</p>
+    <pre class="theme-atom-one-light"><code id="code-mediana" class="hljs"></code></pre>
+
+    <p><b>Filtro de bilateral</b></p>
+    <p>Código Fonte:</p>
+    <pre class="theme-atom-one-light"><code id="code-bilateral" class="hljs"></code></pre>
+
+    <p><b>Filtro camera</b></p>
+    <p>Código Fonte:</p>
+    <pre class="theme-atom-one-light"><code id="code-camera" class="hljs"></code></pre>
+
+    <p><b>Ruído tipo sal-e-pimenta</b></p>
+    <p>Código Fonte:</p>
+    <pre class="theme-atom-one-light"><code id="code-ruido" class="hljs"></code></pre>
+
+    <p>Para todos os programas utilizamos o seguinte arquivo CMakeLists:</p>
+    <pre class="theme-atom-one-light"><code id="code-cmk" class="hljs"></code></pre>
+    
+    <h2>4. Resultados e Análises</h2>
+    <p>Utilizando os programas desenvolvidos e seguindo o roteiro dado, obtivemos os seguintes resultados:</p>
+    
+    <h2>5. Conclusões e Comentários Finais </h2>    
+  </body>
+</html>
