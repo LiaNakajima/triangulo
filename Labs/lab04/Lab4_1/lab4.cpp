@@ -34,7 +34,7 @@ void plotHistogram(const Mat& image, const string& filename) {
 
 int main() {
     // Carrega a imagem em cores
-    Mat img = imread("sua_imagem.jpg");
+    Mat img = imread("foto.jpg");
 
     // Verifica se a imagem foi carregada com sucesso
     if (img.empty()) {
