@@ -46,8 +46,8 @@ int main(int argc, char* argv[])
     double fps = capture.get(CAP_PROP_FPS);
 
     Size frame_size(frame_width, frame_height);
-    VideoWriter outputFrame("video_original.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size);
-    VideoWriter outputMask("video_mask.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size, false);
+    VideoWriter outputFrame("video_original.mp4", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size);
+    VideoWriter outputMask("video_mask.mp4", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size, false);
 
     while (true) {
         capture >> frame;

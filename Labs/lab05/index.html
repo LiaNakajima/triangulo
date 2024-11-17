@@ -4,21 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Relatório do Laboratório 3</title>
+    <title>Relatório do Laboratório 5</title>
 
     <style>h3{margin-top: 1.5em;}</style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cmake.min.js"></script>
+    <script>
+      async function load_code()
+      {
+        lab5_1 = fetch("lab5_1.cpp");
+        lab5_2 = fetch("lab5_2.cpp");
+        promise_cmk = fetch("CMakeLists.txt");
+
+        response = await lab5_1;
+        code = await response.text();
+        document.getElementById("lab5_1").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+
+        response = await lab5_2;
+        code = await response.text();
+        document.getElementById("lab5_2").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+
+        response = await promise_cmk;
+        code = await response.text();
+        document.getElementById("code-cmk").innerHTML = hljs.highlight(code, {language: "cmake"}).value;
+      }
+    </script>
+  </head>
   </head>
   <body style="margin-left: 10%;margin-right: 10%;" onload="load_code();">
     <h1>Relatório do Laboratório 5</h1>
 
     <h2>1. Introdução</h2>
+    <p>As técnicas de subtração de fundo e a detecção de movimentosão são amplamente utilizadas no processamento de imagens e visão computacional para identificar objetos em movimento em uma cena estática.
+      A subtração de fundo consiste em separar elementos em movimentos de elementos estáticos em uma sequência de imagens, facilitando a análise de eventos relevantes na cena.
+      Neste laboratório, serão desenvolvidos programas para aplicar a tecnica de subtração de fundo em diferentes cenários, tanto em vídeos previamente gravados quanto em imagens capturadas ao vivo pela webcam. 
+      Os experimentos incluem a análise de movimentos lentos e rápidos, além da gravação e análise dos resultados para cada configuração.
+    </p>
     
     <h2>2. Fundamentos básicos</h2>
+    <p>
+      A subtração de fundo funciona identificando diferenças significativas entre o fundo do cenário e os objetos em primeiro plano, permitindo a separação de elementos móveis. 
+      O OpenCV oferece uma API para implementar esse método, baseada em algoritmos de aplicações em tempo real.
+    </p>
+    <p>
+      O processo básico consiste em:
+    </p>
+    <ul>
+      <li><strong>Modelo de Fundo: </strong>Criar e atualizar continuamente um modelo do fundo estático.</li>
+      <li><strong>Comparação: </strong> Subtrair cada frame do vídeo do modelo de fundo para observar as diferenças entre os frames e identificar os objetos em movimento.</li>
+      <li><strong>Pós-Processamento: </strong>Aplicar técnicas como limiarização ou dilatação para remover ruídos e refinar as máscaras de movimento.</li>
+    </ul>
+    <p>
+      O OpenCV oferece métodos robustos para implementar esses passos. Entre os algoritmos disponíveis estão:
+    </p>
+    <ul>
+      <li><strong>MOG2 (cv::BackgroundSubtractorMOG2): </strong>
+        Esse modelo baseia-se em uma mistura de distribuições gaussianas para modelar o fundo.
+        Ela oferece controle sobre a sensibilidade a cenários dinâmicos e a capacidade de lidar com sombras e iluminação.
+      </li>
+      <li><strong>KNN (cv::BackgroundSubtractorKNN): </strong>
+        Utiliza um algoritmo baseado em vizinhos próximos para determinar quais pixels pertencem ao fundo.
+        É mais apropriado para cenários com ruído ou pouco movimento.
+      </li>
+  </ul>
     
     <h2>3. Materiais e Métodos</h2>
+    <h3>A) Materiais</h3>
     <p>Para realizar a atividade, utilizamos os seguintes recursos:</p>
     <ul>
       <li>C++: Linguagem de programção utilizada para desenvolver os programas</li>
@@ -26,10 +78,122 @@
       <li>CMake: Ferramenta de automação de compilação</li>
       <li><a href="https://convertio.co/pt/">Convertio</a>: Ferramenta online de conversão de vídeo</li>
       <li>Webcam: Utilizada para capturar as imagens e vídeos</li>
-      <li>Editor de Fotos do celular: Utilizado para fazer a montagem dos avatares</li>
-    </ul>    
-    <h2>4. Resultados e Análises</h2>
+      <li>Objetos coloridos para os experimentos</li>
+    </ul>
     
-    <h2>5. Conclusões e Comentários Finais </h2>    
+    <h3>B) Métodos</h3>
+    <p>Inicialmente, criamos um arquivo texto "CMakeLists.txt", que define as configurações do projeto para pada item do projeto.</p>
+    <p>Código Fonte:</p>
+    <pre class="theme-atom-one-light"><code id="code-cmk" class="hljs"></code></pre>
+
+    <p>Para cada item do projeto, criamos o arquivo em C++, responsável por implementar as funcionalidades do programa.</p>
+    <ul>
+        <li><strong>Item 1:</strong> Programa baseado na subtração de fundo do item para fazer a leitura de seu video gravado em aula anterior. Neste Lab, utilizamos utilize os videos com movimento lento e com movimento rápido gravados no Lab 1.</li>
+        <p>Foi utilizada o biblioteca do OpenCV para aplicar os métodos de subtração. O objeto cv::BackgroundSubtractor será usado para gerar a máscara de primeiro plano.</p>
+        <p>Código Fonte:</p>
+        <pre class="theme-atom-one-light"><code id="lab5_1" class="hljs"></code></pre>
+        
+        <li><strong>Item 2:</strong> Programa que realiza a subtração de fundo do item fazendo a leitura de imagem da webcam. Além disso, o progrma deve salvar os trechos de video.</li>
+        <p>Foi utilizada os mesmos métodos de subtração do item anterior. Neste item, utilizamos a classe <code>cv::VideoWriter</code> para gravar os quadros processados em um arquivo de vídeo.</p>
+        <p>Código Fonte:</p>
+        <pre class="theme-atom-one-light"><code id="lab5_2" class="hljs"></code></pre>
+    </ul>
+
+    <p>Após a criação desses arquivos, os comandos "cmake ." e, posteriormente, "make" foram executados no terminal para compilar o programa e gerar o arquivo executável correspondente.</p>
+    
+    <h2>4. Resultados e Análises</h2>
+    <p>Utilizando os programas desenvolvidos e seguindo o roteiro dado, obtivemos os seguintes resultados:</p>
+    <ul>
+      <li><strong>Item 1:</strong></li>
+      <h3>Vídeo de objeto com mudanças lentas de movimento</h3>
+      <p>Video original:</p>
+      <video controls height="480" width="640">
+        <source src="objeto_devagar_sub.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (MOG2):</p>
+      <video controls height="480" width="640">
+        <source src="objeto_devagar_mog.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (KNN):</p>
+      <video controls height="480" width="640">
+        <source src="objeto_devagar_knn.avi" type="video/avi">
+      </video>
+
+      <h3>Vídeo de objeto com mudanças rápidas de movimento</h3>
+      <p>Video original:</p>
+      <video controls height="480" width="640">
+        <source src="objeto_rapido_sub.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (MOG2):</p>
+      <video controls height="480" width="640">
+        <source src="objeto_rapido_mog.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (KNN):</p>
+      <video controls height="480" width="640">
+        <source src="objeto_rapido_knn.avi" type="video/avi">
+      </video>
+
+      <li><strong>Item 2:</strong></li>
+      <h3>Vídeo de objeto com mudanças lentas de movimento</h3>
+      <p>Video original:</p>
+      <video controls height="480" width="640">
+        <source src="Objeto/video_original.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (MOG2):</p>
+      <video controls height="480" width="640">
+        <source src="Objeto/video_msk.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (KNN):</p>
+      <video controls height="480" width="640">
+        <source src="Objeto/video_msk.avi" type="video/avi">
+      </video>
+
+      <h3>Vídeo de objeto com mudanças rápidas de movimento</h3>
+      <p>Video original:</p>
+      <video controls height="480" width="640">
+        <source src="objeto_rapido_sub.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (MOG2):</p>
+      <video controls height="480" width="640">
+        <source src="objeto_rapido_mog.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (KNN):</p>
+      <video controls height="480" width="640">
+        <source src="objeto_rapido_knn.avi" type="video/avi">
+      </video>
+
+      <h3>Vídeo do grupo com mudanças lentas de movimento</h3>
+      <p>Video original:</p>
+      <video controls height="480" width="640">
+        <source src="objeto_devagar_sub.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (MOG2):</p>
+      <video controls height="480" width="640">
+        <source src="objeto_devagar_mog.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (KNN):</p>
+      <video controls height="480" width="640">
+        <source src="objeto_devagar_knn.avi" type="video/avi">
+      </video>
+
+      <h3>Vídeo do grupo com mudanças rápidas de movimento</h3>
+      <p>Video original:</p>
+      <video controls height="480" width="640">
+        <source src="objeto_rapido_sub.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (MOG2):</p>
+      <video controls height="480" width="640">
+        <source src="objeto_rapido_mog.avi" type="video/avi">
+      </video>
+      <p>Video com subtração de fundo (KNN):</p>
+      <video controls height="480" width="640">
+        <source src="objeto_rapido_knn.avi" type="video/avi">
+      </video>
+    </ul>
+    <h2>5. Conclusões e Comentários Finais </h2>
+
+    <h2>6. Referências </h2>
+    <p><a href="https://docs.opencv.org/4.x/db/df5/tutorial_linux_gcc_cmake.html">Using OpenCV with gcc and CMake</a></p>
+    <p><a href="https://github.com/opencv/opencv/blob/4.x/samples/cpp/tutorial_code/video/bg_sub.cpp">How to Use Background Subtraction Methods</p>
   </body>
 </html>
