@@ -1,35 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Relatório do Laboratório 4</title>
-
-    <style>h3{margin-top: 1.5em;}</style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cmake.min.js"></script>
-  </head>
-  <body style="margin-left: 10%;margin-right: 10%;" onload="load_code();">
-    <h1>Relatório do Laboratório 4</h1>
+</head>
+<body style="margin-left: 10%;margin-right: 10%;">
+    <header class="header-content">
+        <h1>Relatório 4 - Histogramas e Limiarização</h1>
+        <p>
+            Este relatório explora o cálculo e a equalização de histogramas, bem como operações de limiarização,
+            utilizando conceitos e implementações em OpenCV. Os resultados foram organizados para os três integrantes do grupo.
+        </p>
+    </header>
+    <div class="main">
+      <section id="introducao">
+          <h2>1. Introdução</h2>
+          <p>
+              Histogramas são ferramentas importantes na análise de imagens, permitindo entender a distribuição de intensidade
+              de pixels. A equalização de histogramas melhora o contraste, enquanto a limiarização é usada para segmentação.
+          </p>
+      </section>
 
-    <h2>1. Introdução</h2>
-    
-    <h2>2. Fundamentos básicos</h2>
-    
-    <h2>3. Materiais e Métodos</h2>
-    <p>Para realizar a atividade, utilizamos os seguintes recursos:</p>
-    <ul>
-      <li>C++: Linguagem de programção utilizada para desenvolver os programas</li>
-      <li>OpenCV: Biblioteca <i>open source</i> de visão computacional</li>
-      <li>CMake: Ferramenta de automação de compilação</li>
-      <li><a href="https://convertio.co/pt/">Convertio</a>: Ferramenta online de conversão de vídeo</li>
-      <li>Webcam: Utilizada para capturar as imagens e vídeos</li>
-      <li>Editor de Fotos do celular: Utilizado para fazer a montagem dos avatares</li>
-    </ul>    
-    <h2>4. Resultados e Análises</h2>
-    
-    <h2>5. Conclusões e Comentários Finais </h2>    
-  </body>
+      <section id="resultados">
+          <h2>2. Resultados</h2>
+
+          <div class="item">
+              <h3>Item 1: Cálculo e Equalização de Histogramas</h3>
+              <p>
+                  Imagens originais em tons de cinza, histogramas antes e depois da equalização, e as imagens equalizadas para cada integrante.
+              </p>
+              <div >
+                  <h4>Felipe</h4>
+                  <div class="image-grid">
+                      <img src="lab04/Lab4_1/Felipe/foto.jpg" alt="Imagem 1">
+                      <img src="lab04/Lab4_1/Felipe/histograma_equalizado.png" alt="Imagem 2">
+                      <img src="lab04/Lab4_1/Felipe/histograma_original.png" alt="Imagem 3">
+                      <img src="lab04/Lab4_1/Felipe/imagem_cinza.png" alt="Imagem 4">
+                      <img src="lab04/Lab4_1/Felipe/imagem_equalizada.png" alt="Imagem 5">
+                  </div>
+              </div>
+              <div >
+                  <h4>Leonardo</h4>
+                  <div class="image-grid">
+                      <img src="lab04/Lab4_1/Leonardo/foto.jpg" alt="Imagem 1">
+                      <img src="lab04/Lab4_1/Leonardo/histograma_equalizado.png" alt="Imagem 2">
+                      <img src="lab04/Lab4_1/Leonardo/histograma_original.png" alt="Imagem 3">
+                      <img src="lab04/Lab4_1/Leonardo/imagem_cinza.png" alt="Imagem 4">
+                      <img src="lab04/Lab4_1/Leonardo/imagem_equalizada.png" alt="Imagem 5">
+                  </div>
+              </div>
+              <div >
+                  <h4>Lia</h4>
+                  <div class="image-grid">
+                      <img src="lab04/Lab4_1/Lia/fotoLia.jpg" alt="Imagem 1">
+                      <img src="lab04/Lab4_1/Lia/histograma_equalizado.png" alt="Imagem 2">
+                      <img src="lab04/Lab4_1/Lia/histograma_original.png" alt="Imagem 3">
+                      <img src="lab04/Lab4_1/Lia/imagem_cinza.png" alt="Imagem 4">
+                      <img src="lab04/Lab4_1/Lia/imagem_equalizada.png" alt="Imagem 5">
+                  </div>
+              </div>
+          </div>
+
+          <!-- Resultados do Item 2 -->
+          <div class="item">
+              <h3>Item 2: Leitura da Webcam</h3>
+              <p>Resultados da leitura ao vivo, com a imagem original e equalizada para cada integrante.</p>
+              <div >
+                  <h4>Felipe</h4>
+                  <div class="image-grid">
+                      <img src="lab04/Lab4_2/Felipe/histograma_equalizado_webcam.png" alt="Imagem 1">
+                      <img src="lab04/Lab4_2/Felipe/histograma_original_webcam.png" alt="Imagem 2">
+                      <img src="lab04/Lab4_2/Felipe/imagem_cinza_webcam.png" alt="Imagem 3">
+                      <img src="lab04/Lab4_2/Felipe/imagem_equalizada_webcam.png" alt="Imagem 4">
+                  </div>
+                  <h4>Leonardo</h4>
+                  <div class="image-grid">
+                      <img src="lab04/Lab4_2/Leonardo/histograma_equalizado_webcam.png" alt="Imagem 1">
+                      <img src="lab04/Lab4_2/Leonardo/histograma_original_webcam.png" alt="Imagem 2">
+                      <img src="lab04/Lab4_2/Leonardo/imagem_cinza_webcam.png" alt="Imagem 3">
+                      <img src="lab04/Lab4_2/Leonardo/imagem_equalizada_webcam.png" alt="Imagem 4">
+                  </div>
+                  <h4>Lia</h4>
+                  <div class="image-grid">
+                      <img src="lab04/Lab4_2/Lia/histograma_equalizado_webcam.png" alt="Imagem 1">
+                      <img src="lab04/Lab4_2/Lia/histograma_original_webcam.png" alt="Imagem 2">
+                      <img src="lab04/Lab4_2/Lia/imagem_cinza_webcam.png" alt="Imagem 3">
+                      <img src="lab04/Lab4_2/Lia/imagem_equalizada_webcam.png" alt="Imagem 4">
+                  </div>
+              </div>
+          </div>
+
+          <div class="item">
+              <h3>Item 3: Limiarização e Imagem Binária</h3>
+              <p>Resultados da binarização, com equalização antes e depois do processamento.</p>
+              <div >
+                <h4>Felipe</h4>
+                <div class="image-grid">
+                    <img src="lab04/Lab4_3/Felipe/histograma_equalizado_webcam.png" alt="Imagem 1">
+                    <img src="lab04/Lab4_3/Felipe/histograma_original_webcam.png" alt="Imagem 2">
+                    <img src="lab04/Lab4_3/Felipe/imagem_binaria_webcam.png" alt="Imagem 3">
+                    <img src="lab04/Lab4_3/Felipe/imagem_cinza_webcam.png" alt="Imagem 4">
+                    <img src="lab04/Lab4_3/Felipe/imagem_equalizada_webcam.png" alt="Imagem 5">
+                </div>
+            </div>
+            <div >
+                <h4>Leonardo</h4>
+                <div class="image-grid">
+                    <img src="lab04/Lab4_3/Leonardo/histograma_equalizado_webcam.png" alt="Imagem 1">
+                    <img src="lab04/Lab4_3/Leonardo/histograma_original_webcam.png" alt="Imagem 2">
+                    <img src="lab04/Lab4_3/Leonardo/imagem_binaria_webcam.png" alt="Imagem 3">
+                    <img src="lab04/Lab4_3/Leonardo/imagem_cinza_webcam.png" alt="Imagem 4">
+                    <img src="lab04/Lab4_3/Leonardo/imagem_equalizada_webcam.png" alt="Imagem 5">
+                </div>
+            </div>
+            <div >
+                <h4>Lia</h4>
+                <div class="image-grid">
+                    <img src="lab04/Lab4_3/Lia/histograma_equalizado_webcam.png" alt="Imagem 1">
+                    <img src="lab04/Lab4_3/Lia/histograma_original_webcam.png" alt="Imagem 2">
+                    <img src="lab04/Lab4_3/Lia/imagem_binaria_webcam.png" alt="Imagem 3">
+                    <img src="lab04/Lab4_3/Lia/imagem_cinza_webcam.png" alt="Imagem 4">
+                    <img src="lab04/Lab4_3/Lia/imagem_equalizada_webcam.png" alt="Imagem 5">
+                </div>
+            </div>
+          </div>
+
+          <!-- Resultados do Item 4 -->
+          <div class="item">
+              <h3>Item 4: Equalização por Canais</h3>
+              <p>Resultados da equalização separada por canais e da imagem final.</p>
+              <h4>Felipe</h4>
+              <div class="image-grid">
+                  <img src="lab04/Lab4_4/Felipe/imagem_equalizada_colorida.png" alt="Imagem 1">
+              </div>
+              <h4>Leonardo</h4>
+              <div class="image-grid">
+                  <img src="lab04/Lab4_4/Leonardo/imagem_equalizada_colorida.png" alt="Imagem 1">
+              </div>
+              <h4>Lia</h4>
+              <div class="image-grid">
+                  <img src="lab04/Lab4_4/Lia/imagem_equalizada_colorida.png" alt="Imagem 1">
+              </div>
+          </div>
+      </section>
+
+      <section id="referencias">
+          <h2>3. Referências</h2>
+          <ul>
+              <li><a href="https://docs.opencv.org/4.x/d4/d1b/tutorial_histogram_equalization.html" target="_blank">Histogram Equalization</a></li>
+              <li><a href="https://docs.opencv.org/4.x/d8/dc8/tutorial_histogram_calculation.html" target="_blank">Cálculo de Histogramas e Limiarização</a></li>
+              <li><a href="https://docs.opencv.org/4.x/d7/d1b/tutorial_histogram_equalization.html" target="_blank">Basic Thresholding Operations</a></li>
+          </ul>
+      </section>
+    </div>
+</body>
 </html>
