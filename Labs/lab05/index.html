@@ -13,17 +13,17 @@
     <script>
       async function load_code()
       {
-        lab5_1 = fetch("lab5_1/lab5.cpp");
-        lab5_2 = fetch("lab5_2/lab5.cpp");
-        promise_cmk = fetch("lab5_1/CMakeLists.txt");
+        lab5_1 = fetch("lab5_1.cpp");
+        lab5_2 = fetch("lab5_2.cpp");
+        promise_cmk = fetch("CMakeLists.txt");
 
         response = await lab5_1;
         code = await response.text();
-        document.getElementById("lab5_1").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+        document.getElementById("code-sub-video").innerHTML = hljs.highlight(code, {language: "c++"}).value;
 
         response = await lab5_2;
         code = await response.text();
-        document.getElementById("lab5_2").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+        document.getElementById("code-sub-webcam").innerHTML = hljs.highlight(code, {language: "c++"}).value;
 
         response = await promise_cmk;
         code = await response.text();
@@ -90,12 +90,12 @@
         <li><strong>Item 1:</strong> Programa baseado na subtração de fundo do item para fazer a leitura de seu video gravado em aula anterior. Neste Lab, utilizamos utilize os videos com movimento lento e com movimento rápido gravados no Lab 1.</li>
         <p>Foi utilizada o biblioteca do OpenCV para aplicar os métodos de subtração. O objeto cv::BackgroundSubtractor será usado para gerar a máscara de primeiro plano.</p>
         <p>Código Fonte:</p>
-        <pre class="theme-atom-one-light"><code id="lab5_1" class="hljs"></code></pre>
+        <pre class="theme-atom-one-light"><code id="code-sub-video" class="hljs"></code></pre>
         
         <li><strong>Item 2:</strong> Programa que realiza a subtração de fundo do item fazendo a leitura de imagem da webcam. Além disso, o progrma deve salvar os trechos de video.</li>
         <p>Foi utilizada os mesmos métodos de subtração do item anterior. Neste item, utilizamos a classe <code>cv::VideoWriter</code> para gravar os quadros processados em um arquivo de vídeo.</p>
         <p>Código Fonte:</p>
-        <pre class="theme-atom-one-light"><code id="lab5_2" class="hljs"></code></pre>
+        <pre class="theme-atom-one-light"><code id="code-sub-webcam" class="hljs"></code></pre>
     </ul>
 
     <p>Após a criação desses arquivos, os comandos "cmake ." e, posteriormente, "make" foram executados no terminal para compilar o programa e gerar o arquivo executável correspondente.</p>
