@@ -44,6 +44,7 @@ int main(int argc, char* argv[])
     double fps = capture.get(CAP_PROP_FPS);
 
     Size frame_size(frame_width, frame_height);
+    VideoWriter outputFrame("video_original_KNN.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size);
     VideoWriter outputMask("video_KNN.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size, false);
 
     while (true) {
@@ -67,6 +68,7 @@ int main(int argc, char* argv[])
         imshow("Frame", frame);
         imshow("FG Mask", fgMask);      
 
+        outputFrame.write(frame);
         outputMask.write(fgMask);  
  
         //get the input from the keyboard
