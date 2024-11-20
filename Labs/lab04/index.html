@@ -19,47 +19,113 @@
       <section id="introducao">
           <h2>1. Introdução</h2>
           <p>
-              Histogramas são ferramentas importantes na análise de imagens, permitindo entender a distribuição de intensidade
-              de pixels. A equalização de histogramas melhora o contraste, enquanto a limiarização é usada para segmentação.
+              Histogramas são ferramentas essenciais na análise de imagens, pois permitem compreender a distribuição das intensidades
+              dos pixels. A equalização de histogramas é uma técnica que melhora o contraste das imagens, enquanto a limiarização é
+              utilizada para a segmentação, separando objetos de interesse do fundo.
           </p>
       </section>
 
+<section id="materiais">
+            <h2>2. Materiais e Métodos</h2>
+            <h3>A) Materiais</h3> 
+            <ul>
+                <li>C++: Linguagem de programção utilizada para desenvolver os programas</li>
+                <li>OpenCV: Biblioteca <i>open source</i> de visão computacional</li>
+                <li>CMake: Ferramenta de automação de compilação</li>
+                <li>Webcam: Utilizada para capturar as imagens e vídeos</li>
+                <li>Objetos coloridos para os experimentos</li>
+              </ul>
+            </ul>
+
+            <H3>B) Métodos</H3>
+            <p>
+                O relatório foi dividido em quatro itens, cada um com um objetivo específico. Para cada item, os integrantes do grupo
+                desenvolveram um programa em C++ utilizando OpenCV, que foi executado em suas máquinas. Os resultados foram organizados
+                em seções separadas, com as imagens originais, histogramas e imagens processadas.
+            </p>
+        </section>
+
       <section id="resultados">
-          <h2>2. Resultados</h2>
+          <h2>3. Resultados e Análise</h2>
 
           <div class="item">
               <h3>Item 1: Cálculo e Equalização de Histogramas</h3>
               <p>
-                  Imagens originais em tons de cinza, histogramas antes e depois da equalização, e as imagens equalizadas para cada integrante.
+                  Apresentamos as imagens originais em tons de cinza, os histogramas antes e depois da equalização, e as imagens resultantes após a equalização para cada integrante do grupo. Essas imagens ilustram a eficácia do processo de equalização de histogramas na melhoria do contraste das imagens.
               </p>
-              <div >
+              <div>
                   <h4>Felipe</h4>
                   <div class="image-grid">
-                      <img src="Lab4_1/Felipe/foto.jpg" alt="Imagem 1" height="360" width="480">
-                      <img src="Lab4_1/Felipe/histograma_equalizado.png" alt="Imagem 2" height="360" width="480">
-                      <img src="Lab4_1/Felipe/histograma_original.png" alt="Imagem 3" height="360" width="480">
-                      <img src="Lab4_1/Felipe/imagem_cinza.png" alt="Imagem 4" height="360" width="480">
-                      <img src="Lab4_1/Felipe/imagem_equalizada.png" alt="Imagem 5" height="360" width="480">
+                      <figure>
+                          <img src="Lab4_1/Felipe/foto.jpg" alt="Imagem 1" height="360" width="480">
+                          <figcaption>Imagem Original</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Felipe/histograma_equalizado.png" alt="Imagem 2" height="360" width="480">
+                          <figcaption>Histograma Equalizado</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Felipe/histograma_original.png" alt="Imagem 3" height="360" width="480">
+                          <figcaption>Histograma Original</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Felipe/imagem_cinza.png" alt="Imagem 4" height="360" width="480">
+                          <figcaption>Imagem em Tons de Cinza</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Felipe/imagem_equalizada.png" alt="Imagem 5" height="360" width="480">
+                          <figcaption>Imagem Equalizada</figcaption>
+                      </figure>
                   </div>
               </div>
-              <div >
+              <div>
                   <h4>Leonardo</h4>
-                  <div class="image-grid">
-                      <img src="Lab4_1/Leonardo/foto.jpg" alt="Imagem 1" height="360" width="480">
-                      <img src="Lab4_1/Leonardo/histograma_equalizado.png" alt="Imagem 2" height="360" width="480">
-                      <img src="Lab4_1/Leonardo/histograma_original.png" alt="Imagem 3" height="360" width="480">
-                      <img src="Lab4_1/Leonardo/imagem_cinza.png" alt="Imagem 4" height="360" width="480">
-                      <img src="Lab4_1/Leonardo/imagem_equalizada.png" alt="Imagem 5" height="360" width="480">
+                  <div class="image-grid"></div>
+                      <figure>
+                          <img src="Lab4_1/Leonardo/foto.jpg" alt="Imagem 1" height="360" width="480">
+                          <figcaption>Imagem Original</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Leonardo/histograma_equalizado.png" alt="Imagem 2" height="360" width="480">
+                          <figcaption>Histograma Equalizado</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Leonardo/histograma_original.png" alt="Imagem 3" height="360" width="480">
+                          <figcaption>Histograma Original</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Leonardo/imagem_cinza.png" alt="Imagem 4" height="360" width="480">
+                          <figcaption>Imagem em Tons de Cinza</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Leonardo/imagem_equalizada.png" alt="Imagem 5" height="360" width="480">
+                          <figcaption>Imagem Equalizada</figcaption>
+                      </figure>
                   </div>
               </div>
-              <div >
+              <div>
                   <h4>Lia</h4>
                   <div class="image-grid">
-                      <img src="Lab4_1/Lia/fotoLia.jpg" alt="Imagem 1" height="360" width="480">
-                      <img src="Lab4_1/Lia/histograma_equalizado.png" alt="Imagem 2" height="360" width="480">
-                      <img src="Lab4_1/Lia/histograma_original.png" alt="Imagem 3" height="360" width="480">
-                      <img src="Lab4_1/Lia/imagem_cinza.png" alt="Imagem 4" height="360" width="480">
-                      <img src="Lab4_1/Lia/imagem_equalizada.png" alt="Imagem 5" height="360" width="480">
+                      <figure>
+                          <img src="Lab4_1/Lia/fotoLia.jpg" alt="Imagem 1" height="360" width="480">
+                          <figcaption>Imagem Original</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Lia/histograma_equalizado.png" alt="Imagem 2" height="360" width="480">
+                          <figcaption>Histograma Equalizado</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Lia/histograma_original.png" alt="Imagem 3" height="360" width="480">
+                          <figcaption>Histograma Original</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Lia/imagem_cinza.png" alt="Imagem 4" height="360" width="480">
+                          <figcaption>Imagem em Tons de Cinza</figcaption>
+                      </figure>
+                      <figure>
+                          <img src="Lab4_1/Lia/imagem_equalizada.png" alt="Imagem 5" height="360" width="480">
+                          <figcaption>Imagem Equalizada</figcaption>
+                      </figure>
                   </div>
               </div>
           </div>
@@ -67,84 +133,186 @@
           <!-- Resultados do Item 2 -->
           <div class="item">
               <h3>Item 2: Leitura da Webcam</h3>
-              <p>Resultados da leitura ao vivo, com a imagem original e equalizada para cada integrante.</p>
-              <div >
-                  <h4>Felipe</h4>
-                  <div class="image-grid">
-                      <img src="Lab4_2/Felipe/histograma_equalizado_webcam.png" alt="Imagem 1" height="360" width="480">
-                      <img src="Lab4_2/Felipe/histograma_original_webcam.png" alt="Imagem 2" height="360" width="480">
-                      <img src="Lab4_2/Felipe/imagem_cinza_webcam.png" alt="Imagem 3" height="360" width="480">
-                      <img src="Lab4_2/Felipe/imagem_equalizada_webcam.png" alt="Imagem 4" height="360" width="480">
-                  </div>
-                  <h4>Leonardo</h4>
-                  <div class="image-grid">
-                      <img src="Lab4_2/Leonardo/histograma_equalizado_webcam.png" alt="Imagem 1" height="360" width="480">
-                      <img src="Lab4_2/Leonardo/histograma_original_webcam.png" alt="Imagem 2" height="360" width="480">
-                      <img src="Lab4_2/Leonardo/imagem_cinza_webcam.png" alt="Imagem 3" height="360" width="480">
-                      <img src="Lab4_2/Leonardo/imagem_equalizada_webcam.png" alt="Imagem 4" height="360" width="480">
-                  </div>
-                  <h4>Lia</h4>
-                  <div class="image-grid">
-                      <img src="Lab4_2/Lia/histograma_equalizado_webcam.png" alt="Imagem 1" height="360" width="480">
-                      <img src="Lab4_2/Lia/histograma_original_webcam.png" alt="Imagem 2" height="360" width="480">
-                      <img src="Lab4_2/Lia/imagem_cinza_webcam.png" alt="Imagem 3" height="360" width="480">
-                      <img src="Lab4_2/Lia/imagem_equalizada_webcam.png" alt="Imagem 4" height="360" width="480">
-                  </div>
-              </div>
-          </div>
-
-          <div class="item">
-              <h3>Item 3: Limiarização e Imagem Binária</h3>
-              <p>Resultados da binarização, com equalização antes e depois do processamento.</p>
-              <div >
+              <p>
+                  Resultados da leitura ao vivo utilizando a webcam, apresentando a imagem original capturada, o histograma original, 
+                  o histograma equalizado e a imagem equalizada para cada integrante do grupo. Essas imagens demonstram a eficácia 
+                  da equalização de histogramas em tempo real.
+              </p>
+              <div>
                 <h4>Felipe</h4>
                 <div class="image-grid">
-                    <img src="Lab4_3/Felipe/histograma_equalizado_webcam.png" alt="Imagem 1" height="360" width="480">
-                    <img src="Lab4_3/Felipe/histograma_original_webcam.png" alt="Imagem 2" height="360" width="480">
-                    <img src="Lab4_3/Felipe/imagem_binaria_webcam.png" alt="Imagem 3" height="360" width="480">
-                    <img src="Lab4_3/Felipe/imagem_cinza_webcam.png" alt="Imagem 4" height="360" width="480">
-                    <img src="Lab4_3/Felipe/imagem_equalizada_webcam.png" alt="Imagem 5" height="360" width="480">
+                    <figure>
+                        <img src="Lab4_2/Felipe/histograma_equalizado_webcam.png" alt="Histograma Equalizado - Felipe" height="360" width="480">
+                        <figcaption>Histograma Equalizado</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="Lab4_2/Felipe/histograma_original_webcam.png" alt="Histograma Original - Felipe" height="360" width="480">
+                        <figcaption>Histograma Original</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="Lab4_2/Felipe/imagem_cinza_webcam.png" alt="Imagem em Tons de Cinza - Felipe" height="360" width="480">
+                        <figcaption>Imagem em Tons de Cinza</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="Lab4_2/Felipe/imagem_equalizada_webcam.png" alt="Imagem Equalizada - Felipe" height="360" width="480">
+                        <figcaption>Imagem Equalizada</figcaption>
+                    </figure>
                 </div>
-            </div>
-            <div >
+            
                 <h4>Leonardo</h4>
                 <div class="image-grid">
-                    <img src="Lab4_3/Leonardo/histograma_equalizado_webcam.png" alt="Imagem 1" height="360" width="480">
-                    <img src="Lab4_3/Leonardo/histograma_original_webcam.png" alt="Imagem 2" height="360" width="480">
-                    <img src="Lab4_3/Leonardo/imagem_binaria_webcam.png" alt="Imagem 3" height="360" width="480">
-                    <img src="Lab4_3/Leonardo/imagem_cinza_webcam.png" alt="Imagem 4" height="360" width="480">
-                    <img src="Lab4_3/Leonardo/imagem_equalizada_webcam.png" alt="Imagem 5" height="360" width="480">
+                    <figure>
+                        <img src="Lab4_2/Leonardo/histograma_equalizado_webcam.png" alt="Histograma Equalizado - Leonardo" height="360" width="480">
+                        <figcaption>Histograma Equalizado</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="Lab4_2/Leonardo/histograma_original_webcam.png" alt="Histograma Original - Leonardo" height="360" width="480">
+                        <figcaption>Histograma Original</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="Lab4_2/Leonardo/imagem_cinza_webcam.png" alt="Imagem em Tons de Cinza - Leonardo" height="360" width="480">
+                        <figcaption>Imagem em Tons de Cinza</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="Lab4_2/Leonardo/imagem_equalizada_webcam.png" alt="Imagem Equalizada - Leonardo" height="360" width="480">
+                        <figcaption>Imagem Equalizada</figcaption>
+                    </figure>
                 </div>
-            </div>
-            <div >
+            
                 <h4>Lia</h4>
                 <div class="image-grid">
-                    <img src="Lab4_3/Lia/histograma_equalizado_webcam.png" alt="Imagem 1" height="360" width="480">
-                    <img src="Lab4_3/Lia/histograma_original_webcam.png" alt="Imagem 2" height="360" width="480">
-                    <img src="Lab4_3/Lia/imagem_binaria_webcam.png" alt="Imagem 3" height="360" width="480">
-                    <img src="Lab4_3/Lia/imagem_cinza_webcam.png" alt="Imagem 4" height="360" width="480">
-                    <img src="Lab4_3/Lia/imagem_equalizada_webcam.png" alt="Imagem 5" height="360" width="480">
+                    <figure>
+                        <img src="Lab4_2/Lia/histograma_equalizado_webcam.png" alt="Histograma Equalizado - Lia" height="360" width="480">
+                        <figcaption>Histograma Equalizado</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="Lab4_2/Lia/histograma_original_webcam.png" alt="Histograma Original - Lia" height="360" width="480">
+                        <figcaption>Histograma Original</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="Lab4_2/Lia/imagem_cinza_webcam.png" alt="Imagem em Tons de Cinza - Lia" height="360" width="480">
+                        <figcaption>Imagem em Tons de Cinza</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="Lab4_2/Lia/imagem_equalizada_webcam.png" alt="Imagem Equalizada - Lia" height="360" width="480">
+                        <figcaption>Imagem Equalizada</figcaption>
+                    </figure>
                 </div>
             </div>
-          </div>
-
+            
+            <div class="item">
+                <h3>Item 3: Limiarização e Imagem Binária</h3>
+                <p>Resultados da binarização, com equalização antes e depois do processamento.</p>
+            
+                <div>
+                    <h4>Felipe</h4>
+                    <div class="image-grid">
+                        <figure>
+                            <img src="Lab4_3/Felipe/histograma_equalizado_webcam.png" alt="Histograma Equalizado - Felipe" height="360" width="480">
+                            <figcaption>Histograma Equalizado</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Felipe/histograma_original_webcam.png" alt="Histograma Original - Felipe" height="360" width="480">
+                            <figcaption>Histograma Original</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Felipe/imagem_binaria_webcam.png" alt="Imagem Binária - Felipe" height="360" width="480">
+                            <figcaption>Imagem Binária</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Felipe/imagem_cinza_webcam.png" alt="Imagem em Tons de Cinza - Felipe" height="360" width="480">
+                            <figcaption>Imagem em Tons de Cinza</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Felipe/imagem_equalizada_webcam.png" alt="Imagem Equalizada - Felipe" height="360" width="480">
+                            <figcaption>Imagem Equalizada</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            
+                <div>
+                    <h4>Leonardo</h4>
+                    <div class="image-grid">
+                        <figure>
+                            <img src="Lab4_3/Leonardo/histograma_equalizado_webcam.png" alt="Histograma Equalizado - Leonardo" height="360" width="480">
+                            <figcaption>Histograma Equalizado</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Leonardo/histograma_original_webcam.png" alt="Histograma Original - Leonardo" height="360" width="480">
+                            <figcaption>Histograma Original</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Leonardo/imagem_binaria_webcam.png" alt="Imagem Binária - Leonardo" height="360" width="480">
+                            <figcaption>Imagem Binária</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Leonardo/imagem_cinza_webcam.png" alt="Imagem em Tons de Cinza - Leonardo" height="360" width="480">
+                            <figcaption>Imagem em Tons de Cinza</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Leonardo/imagem_equalizada_webcam.png" alt="Imagem Equalizada - Leonardo" height="360" width="480">
+                            <figcaption>Imagem Equalizada</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            
+                <div>
+                    <h4>Lia</h4>
+                    <div class="image-grid">
+                        <figure>
+                            <img src="Lab4_3/Lia/histograma_equalizado_webcam.png" alt="Histograma Equalizado - Lia" height="360" width="480">
+                            <figcaption>Histograma Equalizado</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Lia/histograma_original_webcam.png" alt="Histograma Original - Lia" height="360" width="480">
+                            <figcaption>Histograma Original</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Lia/imagem_binaria_webcam.png" alt="Imagem Binária - Lia" height="360" width="480">
+                            <figcaption>Imagem Binária</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Lia/imagem_cinza_webcam.png" alt="Imagem em Tons de Cinza - Lia" height="360" width="480">
+                            <figcaption>Imagem em Tons de Cinza</figcaption>
+                        </figure>
+                        <figure>
+                            <img src="Lab4_3/Lia/imagem_equalizada_webcam.png" alt="Imagem Equalizada - Lia" height="360" width="480">
+                            <figcaption>Imagem Equalizada</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+            
           <!-- Resultados do Item 4 -->
           <div class="item">
-              <h3>Item 4: Equalização por Canais</h3>
-              <p>Resultados da equalização separada por canais e da imagem final.</p>
-              <h4>Felipe</h4>
-              <div class="image-grid">
-                  <img src="Lab4_4/Felipe/imagem_equalizada_colorida.png" alt="Imagem 1" height="360" width="480">
-              </div>
-              <h4>Leonardo</h4>
-              <div class="image-grid">
-                  <img src="Lab4_4/Leonardo/imagem_equalizada_colorida.png" alt="Imagem 1" height="360" width="480">
-              </div>
-              <h4>Lia</h4>
-              <div class="image-grid">
-                  <img src="Lab4_4/Lia/imagem_equalizada_colorida.png" alt="Imagem 1" height="360" width="480">
-              </div>
-          </div>
+            <h3>Item 4: Equalização por Canais</h3>
+            <p>Resultados da equalização separada por canais e da imagem final.</p>
+        
+            <h4>Felipe</h4>
+            <div class="image-grid">
+                <figure>
+                    <img src="Lab4_4/Felipe/imagem_equalizada_colorida.png" alt="Imagem Equalizada por Canais - Felipe" height="360" width="480">
+                    <figcaption>Imagem Equalizada por Canais</figcaption>
+                </figure>
+            </div>
+        
+            <h4>Leonardo</h4>
+            <div class="image-grid">
+                <figure>
+                    <img src="Lab4_4/Leonardo/imagem_equalizada_colorida.png" alt="Imagem Equalizada por Canais - Leonardo" height="360" width="480">
+                    <figcaption>Imagem Equalizada por Canais</figcaption>
+                </figure>
+            </div>
+        
+            <h4>Lia</h4>
+            <div class="image-grid">
+                <figure>
+                    <img src="Lab4_4/Lia/imagem_equalizada_colorida.png" alt="Imagem Equalizada por Canais - Lia" height="360" width="480">
+                    <figcaption>Imagem Equalizada por Canais</figcaption>
+                </figure>
+            </div>
+        </div>
+        
       </section>
 
       <section id="referencias">
