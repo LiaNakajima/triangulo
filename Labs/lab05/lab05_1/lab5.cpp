@@ -26,10 +26,10 @@ int main(int argc, char* argv[])
     }
  
     //MOG2
-    //Ptr<BackgroundSubtractor> pBackSub = createBackgroundSubtractorMOG2();
+    Ptr<BackgroundSubtractor> pBackSub = createBackgroundSubtractorMOG2();
 
     //KNN
-    Ptr<BackgroundSubtractor> pBackSub = createBackgroundSubtractorKNN();
+    //Ptr<BackgroundSubtractor> pBackSub = createBackgroundSubtractorKNN();
 
     VideoCapture capture( samples::findFile("objeto_rapido.mp4") );
     if (!capture.isOpened()){
@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
     double fps = capture.get(CAP_PROP_FPS);
 
     Size frame_size(frame_width, frame_height);
-    VideoWriter outputMask("objeto_rapido_mask_KNN.mp4", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size, false);
+    VideoWriter outputMask("objeto_rapido_mask_MOG2.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size, false);
 
     while (true) {
         capture >> frame;

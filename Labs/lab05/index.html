@@ -14,8 +14,8 @@
       async function load_code()
       {
         lab5_1 = fetch("lab05_1\lab5.cpp");
-        lab5_2 = fetch("lab5_2.cpp");
-        promise_cmk = fetch("CMakeLists.txt");
+        lab5_2 = fetch("lab05_2\lab5");
+        promise_cmk = fetch("lab05_1\CMakeLists.txt");
 
         response = await lab5_1;
         code = await response.text();
