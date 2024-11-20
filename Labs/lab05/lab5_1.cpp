@@ -25,14 +25,13 @@ int main(int argc, char* argv[])
         parser.printMessage();
     }
  
-    //create Background Subtractor objects
-    Ptr<BackgroundSubtractor> pBackSub;
-    if (parser.get<String>("algo") == "MOG2")
-        pBackSub = createBackgroundSubtractorMOG2();
-    else
-        pBackSub = createBackgroundSubtractorKNN();
- 
-    VideoCapture capture( samples::findFile("pessoa_rapido.mp4") );
+    //MOG2
+    //Ptr<BackgroundSubtractor> pBackSub = createBackgroundSubtractorMOG2();
+
+    //KNN
+    Ptr<BackgroundSubtractor> pBackSub = createBackgroundSubtractorKNN();
+
+    VideoCapture capture( samples::findFile("objeto_rapido.mp4") );
     if (!capture.isOpened()){
         //error in opening the video input
         cerr << "Unable to open: " << parser.get<String>("input") << endl;
@@ -45,8 +44,7 @@ int main(int argc, char* argv[])
     double fps = capture.get(CAP_PROP_FPS);
 
     Size frame_size(frame_width, frame_height);
-    VideoWriter outputFrame("pessoa_rapido_sub.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size);
-    VideoWriter outputMask("pessoa_rapido_submask.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size, false);
+    VideoWriter outputMask("objeto_rapido_mask_KNN.mp4", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size, false);
 
     while (true) {
         capture >> frame;
@@ -69,7 +67,6 @@ int main(int argc, char* argv[])
         imshow("Frame", frame);
         imshow("FG Mask", fgMask);
 
-        outputFrame.write(frame);
         outputMask.write(fgMask);
         
  

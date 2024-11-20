@@ -25,12 +25,11 @@ int main(int argc, char* argv[])
         parser.printMessage();
     }
  
-    //create Background Subtractor objects
-    Ptr<BackgroundSubtractor> pBackSub;
-    if (parser.get<String>("algo") == "MOG2")
-        pBackSub = createBackgroundSubtractorMOG2();
-    else
-        pBackSub = createBackgroundSubtractorKNN();
+    //MOG2
+    //Ptr<BackgroundSubtractor> pBackSub = createBackgroundSubtractorMOG2();
+
+    //KNN
+    Ptr<BackgroundSubtractor> pBackSub = createBackgroundSubtractorKNN();
  
     VideoCapture capture(0);
     if (!capture.isOpened()){
@@ -45,8 +44,7 @@ int main(int argc, char* argv[])
     double fps = capture.get(CAP_PROP_FPS);
 
     Size frame_size(frame_width, frame_height);
-    VideoWriter outputFrame("video_original.mp4", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size);
-    VideoWriter outputMask("video_mask.mp4", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size, false);
+    VideoWriter outputMask("video_KNN.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), fps, frame_size, false);
 
     while (true) {
         capture >> frame;
@@ -69,14 +67,13 @@ int main(int argc, char* argv[])
         imshow("Frame", frame);
         imshow("FG Mask", fgMask);      
 
-        outputFrame.write(frame);
         outputMask.write(fgMask);  
  
         //get the input from the keyboard
         int keyboard = waitKey(30);
         if (keyboard == 'q' || keyboard == 27){
-            imwrite("foto_original.jpg", frame);
-            imwrite("foto_mask.jpg", fgMask);
+            imwrite("foto_original_KNN.jpg", frame);
+            imwrite("foto_mask_KNN.jpg", fgMask);
             break;
         }
     }
