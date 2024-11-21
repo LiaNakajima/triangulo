@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html>
+  <style>
+    div.videocontainer {
+      width:100%;
+      overflow:auto;
+    }
+    div.videocontainer div {
+      width:33%;  
+      float:left;
+    }
+    </style>
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +23,9 @@
     <script>
       async function load_code()
       {
-        lab5_1 = fetch("lab05_1\lab5.cpp");
-        lab5_2 = fetch("lab05_2\lab5");
-        promise_cmk = fetch("lab05_1\CMakeLists.txt");
+        lab5_1 = fetch("lab5_1.cpp");
+        lab5_2 = fetch("lab5_2.cpp");
+        promise_cmk = fetch("CMakeLists.txt");
 
         response = await lab5_1;
         code = await response.text();
@@ -102,60 +112,130 @@
     
     <h2>4. Resultados e Análises</h2>
     <p>Utilizando os programas desenvolvidos e seguindo o roteiro dado, obtivemos os seguintes resultados:</p>
+    <h3>Item 1:</h3>
+    <p>Vídeo de objeto com mudanças lentas de movimento</p>
+    <div class="videocontainer">
+      <div>
+        <p><strong>Video original:</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_1/objeto_devagar.mp4" type="video/mp4">
+        </video>
+      </div>
+      
+      <div>
+        <p><strong>Video com subtração de fundo (MOG2):</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_1/objeto_devagar_mask_MOG2.mp4" type="video/mp4">
+        </video>
+      </div>
+      
+      <div>
+        <p><strong>Video com subtração de fundo (KNN):</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_1/objeto_devagar_mask_MOG2.mp4" type="video/mp4">
+        </video>
+      </div>
+      
+    </div>
+
+    <h4>Vídeo de objeto com mudanças rápidas de movimento</h4>
+    <div class="videocontainer">
+      <div>
+        <p><strong>Video original:</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_1/objeto_rapido.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div>
+        <p><strong>Video com subtração de fundo (MOG2):</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_1/objeto_rapido_mask_MOG2.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div>
+        <p><strong>Video com subtração de fundo (KNN):</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_1/objeto_rapido_mask_KNN.mp4" type="video/mp4">
+        </video>
+
+      </div>
+    </div>
+
+
+    <h3>Item 2:</h3>
+    <h4>Vídeo com objeto</h4>
+    <div class="videocontainer">
+      <div>
+        <p><strong>Video original:</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_2/Objeto/video_original_KNN.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div>
+        <p><strong>Video com subtração de fundo (MOG2):</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_2/Objeto/video_MOG2.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div>
+        <p><strong>Video com subtração de fundo (KNN):</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_2/Objeto/video_KNN.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <h4>Vídeo do grupo</h4>
+    <div class="videocontainer">
+      <div>
+        <p><strong>Video original:</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_2/Grupo/video_original_KNN.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div>
+        <p><strong>Video com subtração de fundo (MOG2):</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_2/Grupo/video_MOG2.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div>
+        <p><strong>Video com subtração de fundo (KNN):</strong></p>
+        <video width="320" height="240" controls autoplay>
+          <source src="lab05_2/Grupo/video_KNN.mp4"video_KNN.mp4 type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <p>É possível observar que o algoritmo MOG2 demonstrou ser mais adaptável em situações onde há mudanças graduais no fundo, como oscilações de luz ou movimentos leves de objetos estáticos.
+      Apesar de não detectarmos isso nos videos do experimento, o método KNN é robusto em cenários com menos variações, mas com uma maior sensibilidade ao ruído em ambientes dinâmicos.
+    </p>
+
+    <h3>Aplicações Práticas da Subtração de Fundo e Detecção de Movimento</h3>
+    <p>
+      A subtração de fundo e a detecção de movimento são amplamente aplicadas em diversos contextos que demandam o monitoramento e análise de cenas dinâmicas. Abaixo estão alguns exemplos de aplicações práticas:
+    </p>
     <ul>
-      <li><strong>Item 1:</strong></li>
-      <h3>Vídeo de objeto com mudanças lentas de movimento</h3>
-      <p>Video original:</p>
-      <video controls height="480" width="640">
-        <source src="lab05_1/objeto_devagar.mp4" type="video/mp4">
-      </video>
-      <p>Video com subtração de fundo (MOG2):</p>
-      <video controls height="480" width="640">
-        <source src="lab05_1/objeto_devagar_mask_MOG2.mp4" type="video/mp4">
-      </video>
-      <p>Video com subtração de fundo (KNN):</p>
-      <video controls height="480" width="640">
-        <source src="lab05_1/objeto_devagar_mask_MOG2.mp4" type="video/mp4">
-      </video>
-
-      <h3>Vídeo de objeto com mudanças rápidas de movimento</h3>
-      <p>Video original:</p>
-      <video controls height="480" width="640">
-        <source src="lab05_1/objeto_rapido.mp4" type="video/mp4">
-      </video>
-      <p>Video com subtração de fundo (MOG2):</p>
-      <video controls height="480" width="640">
-        <source src="lab05_1/objeto_rapido_mask_MOG2.mp4" type="video/mp4">
-      </video>
-      <p>Video com subtração de fundo (KNN):</p>
-      <video controls height="480" width="640">
-        <source src="lab05_1/objeto_rapido_mask_KNN.mp4" type="video/mp4">
-      </video>
-
-
-      <li><strong>Item 2:</strong></li>
-      <h3>Vídeo com objeto</h3>
-      <p>Video com subtração de fundo (MOG2):</p>
-      <video controls height="480" width="640">
-        <source src="lab05_2/Objeto/video_MOG2.mp4" type="video/mp4">
-      </video>
-      <p>Video com subtração de fundo (KNN):</p>
-      <video controls height="480" width="640">
-        <source src="lab05_2/Objeto/video_KNN.mp4" type="video/mp4">
-      </video>
-
-      <h3>Vídeo do grupo</h3>
-      <p>Video com subtração de fundo (MOG2):</p>
-      <video controls height="480" width="640">
-        <source src="lab05_2/Grupo/video_MOG2.mp4" type="video/mp4">
-      </video>
-      <p>Video com subtração de fundo (KNN):</p>
-      <video controls height="480" width="640">
-        <source src="lab05_2/Grupo/"video_KNN.mp4 type="video/mp4">
-      </video>
+      <li>1. Monitoramento de Segurança e Vigilância</li>
+      <p>
+        Uso: Sistemas de segurança utilizam subtração de fundo para identificar intrusos ou atividades incomuns em áreas monitoradas.
+      </p>
+      <p>
+        Exemplo: Detectar movimentos em um estacionamento ou dentro de um prédio após o horário comercial.
+      </p>
+      <li>2. Controle de Tráfego e Mobilidade Urbana</li>
+      <p>
+        Uso: Contagem de veículos, análise de fluxo de tráfego e identificação de congestionamentos ou acidentes.
+      </p>
+      <p>
+        Exemplo: Monitoramento em tempo real de uma rodovia para sinalizar engarrafamentos ou colisões.
+      </p>
     </ul>
     <h2>5. Conclusões e Comentários Finais </h2>
-
+    <p>
+      Este experimento permitiu uma compreensão prática e aprofundada das técnicas de segmentação de imagem baseadas em visão computacional. 
+      Por meio da implementação e experimentação dos algoritmos MOG2 e KNN, foi possível observar as características e limitações de cada método, além de explorar sua aplicação em diferentes cenários, como vídeos pré-gravados e capturas ao vivo via webcam.
+    </p>
     <h2>6. Referências </h2>
     <p><a href="https://docs.opencv.org/4.x/db/df5/tutorial_linux_gcc_cmake.html">Using OpenCV with gcc and CMake</a></p>
     <p><a href="https://github.com/opencv/opencv/blob/4.x/samples/cpp/tutorial_code/video/bg_sub.cpp">How to Use Background Subtraction Methods</p>
