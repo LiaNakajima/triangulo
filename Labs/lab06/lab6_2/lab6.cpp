@@ -1,11 +1,16 @@
-#include <opencv2/opencv.hpp>
-#include <opencv2/features2d.hpp>
-#include <opencv2/xfeatures2d.hpp>
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
 #include <iostream>
-#include <vector>
-
+ 
 using namespace cv;
-using namespace cv::xfeatures2d;
+using namespace std;
+ 
+int maxCorners = 23;
+int maxTrackbar = 100;
+ 
+RNG rng(12345);
+const char* source_window = "Image";
 
 void detectAndDrawFeatures(const Mat& frame, Mat& frameWithFeatures)
 {
@@ -20,9 +25,9 @@ void detectAndDrawFeatures(const Mat& frame, Mat& frameWithFeatures)
     bool useHarrisDetector = false;
     double k = 0.04;
  
-    Mat copy = src.clone();
+    Mat copy = frame.clone();
  
-    goodFeaturesToTrack( src_gray,
+    goodFeaturesToTrack( grayFrame,
                          corners,
                          maxCorners,
                          qualityLevel,
@@ -40,9 +45,9 @@ void detectAndDrawFeatures(const Mat& frame, Mat& frameWithFeatures)
     {
         circle( copy, corners[i], radius, Scalar(rng.uniform(0,255), rng.uniform(0, 256), rng.uniform(0, 256)), FILLED );
     }
+
+
  
-    namedWindow( source_window );
-    imshow( source_window, copy );
 }
 
 int main() {
