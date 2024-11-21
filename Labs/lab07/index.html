@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    div.videocontainer {
+      width:100%;
+      overflow:auto;
+    }
+    div.videocontainer div {
+      width:33%;  
+      float:left;
+    }
+    </style>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Relatório do Laboratório 6</title>
+
+    <style>h3{margin-top: 1.5em;}</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cmake.min.js"></script>
+    <script>
+      async function load_code()
+      {
+        lab6_1 = fetch("lab6_1.cpp");
+        lab6_2 = fetch("lab6_2.cpp");
+        promise_cmk = fetch("CMakeLists.txt");
+
+        response = await lab6_1;
+        code = await response.text();
+        document.getElementById("code-sub-video").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+
+        response = await lab6_2;
+        code = await response.text();
+        document.getElementById("code-sub-webcam").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+
+        response = await promise_cmk;
+        code = await response.text();
+        document.getElementById("code-cmk").innerHTML = hljs.highlight(code, {language: "cmake"}).value;
+      }
+    </script>
+  </head>
+  <body style="margin-left: 10%;margin-right: 10%;" onload="load_code();">
+    <h1>Relatório do Laboratório 7</h1>
+
+    <h2>1. Introdução</h2>
+    
+    <h2>2. Fundamentos básicos</h2>
+    
+    <h2>3. Materiais e Métodos</h2>
+    <h3>A) Materiais</h3>
+    <p>Para realizar a atividade, utilizamos os seguintes recursos:</p>
+    <ul>
+      <li>C++: Linguagem de programção utilizada para desenvolver os programas</li>
+      <li>OpenCV: Biblioteca <i>open source</i> de visão computacional</li>
+      <li>CMake: Ferramenta de automação de compilação</li>
+      <li><a href="https://convertio.co/pt/">Convertio</a>: Ferramenta online de conversão de vídeo</li>
+      <li>Webcam: Utilizada para capturar as imagens e vídeos</li>
+      <li>Objetos coloridos para os experimentos</li>
+    </ul>
+    
+    <h3>B) Métodos</h3>
+    <p>Inicialmente, criamos um arquivo texto "CMakeLists.txt", que define as configurações do projeto para pada item do projeto.</p>
+    <p>Código Fonte:</p>
+    <pre class="theme-atom-one-light"><code id="code-cmk" class="hljs"></code></pre>
+
+    <p>Após a criação desses arquivos, os comandos "cmake ." e, posteriormente, "make" foram executados no terminal para compilar o programa e gerar o arquivo executável correspondente.</p>
+    
+    <h2>4. Resultados e Análises</h2>
+
+    <h2>5. Conclusões e Comentários Finais </h2>
+    <p>
+    </p>
+    <h2>6. Referências </h2>
+    <p><a href="https://docs.opencv.org/4.x/db/d28/tutorial_cascade_classifier.html">Cascade Classifier</a></p>
+  </body>
+</html>
