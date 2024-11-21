@@ -12,6 +12,9 @@
         "variant": "cpp",
         "bitset": "cpp",
         "chrono": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "ostream": "cpp",
+        "initializer_list": "cpp",
+        "vector": "cpp"
     }
 }

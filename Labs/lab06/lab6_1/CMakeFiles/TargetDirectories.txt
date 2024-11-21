@@ -1,0 +1,3 @@
+/home/ufabc/pvideo_iz/triangulo.github.io/Labs/lab06/lab6_1/CMakeFiles/lab6.dir
+/home/ufabc/pvideo_iz/triangulo.github.io/Labs/lab06/lab6_1/CMakeFiles/edit_cache.dir
+/home/ufabc/pvideo_iz/triangulo.github.io/Labs/lab06/lab6_1/CMakeFiles/rebuild_cache.dir

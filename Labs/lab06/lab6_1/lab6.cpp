@@ -1,76 +1,75 @@
-#include <opencv2/opencv.hpp>
-#include <opencv2/features2d.hpp>
-#include <opencv2/xfeatures2d.hpp>
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
 #include <iostream>
-#include <vector>
-
+ 
 using namespace cv;
-using namespace cv::xfeatures2d;
-
-void detectAndSaveFeatures(const std::string& inputPath, const std::string& outputPath) {
-    // Carregar imagem
-    Mat image = imread(inputPath, IMREAD_COLOR);
-    if (image.empty()) {
-        std::cerr << "Erro ao carregar a imagem: " << inputPath << std::endl;
-        return;
-    }
-
-    // Conversão para escala de cinza
-    Mat grayImage;
-    cvtColor(image, grayImage, COLOR_BGR2GRAY);
-
-    // Detector de Good Features to Track
-    std::vector<Point2f> corners;
-    goodFeaturesToTrack(grayImage, corners, 100, 0.01, 10);
-
-    // Marcar os pontos detectados
-    for (const auto& corner : corners) {
-        circle(image, corner, 5, Scalar(0, 255, 0), -1);
-    }
-
-    // Detector SURF
-    Ptr<SURF> surf = SURF::create(400);
-    std::vector<KeyPoint> keypoints;
-    Mat descriptors;
-
-    surf->detectAndCompute(grayImage, noArray(), keypoints, descriptors);
-
-    // Desenhar os keypoints na imagem
-    Mat imageWithKeypoints;
-    drawKeypoints(image, keypoints, imageWithKeypoints, Scalar(255, 0, 0), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-
-    // Salvar imagem com as features detectadas
-    imwrite(outputPath, imageWithKeypoints);
-    std::cout << "Imagem salva com features detectadas: " << outputPath << std::endl;
-}
-
-int main() {
-    // Caminhos das imagens
-    std::vector<std::string> inputPaths = {"imagem1.jpg", "imagem2.jpg"};
-    std::vector<std::string> outputPaths = {"imagem1_features.jpg", "imagem2_features.jpg"};
-
-    for (size_t i = 0; i < inputPaths.size(); ++i) {
-        detectAndSaveFeatures(inputPaths[i], outputPaths[i]);
-    }
-
-    // Processar frames de vídeo
-    VideoCapture video("video.mp4");
-    if (!video.isOpened()) {
-        std::cerr << "Erro ao abrir o vídeo!" << std::endl;
+using namespace std;
+ 
+Mat src, src_gray;
+ 
+int maxCorners = 23;
+int maxTrackbar = 100;
+ 
+RNG rng(12345);
+const char* source_window = "Image";
+ 
+void goodFeaturesToTrack_Demo( int, void* );
+ 
+int main( int argc, char** argv )
+{
+    CommandLineParser parser( argc, argv, "{@input | pic3.png | input image}" );
+    src = imread("foto.jpg");
+    if( src.empty() )
+    {
+        cout << "Could not open or find the image!\n" << endl;
+        cout << "Usage: " << argv[0] << " <Input image>" << endl;
         return -1;
     }
-
-    int frameIndex = 0;
-    while (true) {
-        Mat frame;
-        video >> frame;
-
-        if (frame.empty())
-            break;
-
-        std::string frameOutputPath = "frame_" + std::to_string(frameIndex++) + "_features.jpg";
-        detectAndSaveFeatures(frame, frameOutputPath);
-    }
-
+    cvtColor( src, src_gray, COLOR_BGR2GRAY );
+ 
+    namedWindow( source_window );
+ 
+    createTrackbar( "Max corners:", source_window, &maxCorners, maxTrackbar, goodFeaturesToTrack_Demo );
+ 
+    goodFeaturesToTrack_Demo( 0, 0 );
+ 
+    waitKey();
     return 0;
+}
+ 
+void goodFeaturesToTrack_Demo( int, void* )
+{
+    maxCorners = MAX(maxCorners, 1);
+    vector<Point2f> corners;
+    double qualityLevel = 0.01;
+    double minDistance = 10;
+    int blockSize = 3, gradientSize = 3;
+    bool useHarrisDetector = false;
+    double k = 0.04;
+ 
+    Mat copy = src.clone();
+ 
+    goodFeaturesToTrack( src_gray,
+                         corners,
+                         maxCorners,
+                         qualityLevel,
+                         minDistance,
+                         Mat(),
+                         blockSize,
+                         gradientSize,
+                         useHarrisDetector,
+                         k );
+ 
+ 
+    cout << "** Number of corners detected: " << corners.size() << endl;
+    int radius = 4;
+    for( size_t i = 0; i < corners.size(); i++ )
+    {
+        circle( copy, corners[i], radius, Scalar(rng.uniform(0,255), rng.uniform(0, 256), rng.uniform(0, 256)), FILLED );
+    }
+ 
+    imwrite("foto_" + to_string(corners.size()) + "_corners.jpg", copy);
+    namedWindow( source_window );
+    imshow( source_window, copy );
 }

@@ -7,30 +7,42 @@
 using namespace cv;
 using namespace cv::xfeatures2d;
 
-void detectAndDrawFeatures(const Mat& frame, Mat& frameWithFeatures) {
-    // Conversão para escala de cinza
+void detectAndDrawFeatures(const Mat& frame, Mat& frameWithFeatures)
+{
     Mat grayFrame;
     cvtColor(frame, grayFrame, COLOR_BGR2GRAY);
 
-    // Detector de Good Features to Track
-    std::vector<Point2f> corners;
-    goodFeaturesToTrack(grayFrame, corners, 100, 0.01, 10);
-
-    // Copiar o frame original para desenhar as features
-    frameWithFeatures = frame.clone();
-    for (const auto& corner : corners) {
-        circle(frameWithFeatures, corner, 5, Scalar(0, 255, 0), -1);
+    maxCorners = MAX(maxCorners, 1);
+    vector<Point2f> corners;
+    double qualityLevel = 0.01;
+    double minDistance = 10;
+    int blockSize = 3, gradientSize = 3;
+    bool useHarrisDetector = false;
+    double k = 0.04;
+ 
+    Mat copy = src.clone();
+ 
+    goodFeaturesToTrack( src_gray,
+                         corners,
+                         maxCorners,
+                         qualityLevel,
+                         minDistance,
+                         Mat(),
+                         blockSize,
+                         gradientSize,
+                         useHarrisDetector,
+                         k );
+ 
+ 
+    cout << "** Number of corners detected: " << corners.size() << endl;
+    int radius = 4;
+    for( size_t i = 0; i < corners.size(); i++ )
+    {
+        circle( copy, corners[i], radius, Scalar(rng.uniform(0,255), rng.uniform(0, 256), rng.uniform(0, 256)), FILLED );
     }
-
-    // Detector SURF
-    Ptr<SURF> surf = SURF::create(400);
-    std::vector<KeyPoint> keypoints;
-    Mat descriptors;
-
-    surf->detectAndCompute(grayFrame, noArray(), keypoints, descriptors);
-
-    // Desenhar os keypoints
-    drawKeypoints(frameWithFeatures, keypoints, frameWithFeatures, Scalar(255, 0, 0), DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+ 
+    namedWindow( source_window );
+    imshow( source_window, copy );
 }
 
 int main() {
