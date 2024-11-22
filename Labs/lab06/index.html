@@ -47,23 +47,15 @@
     <h2>1. Introdução</h2>
     <p>A detecção de features em imagens é uma técnica amplamente utilizada em aplicações como rastreamento de objetos, reconstrução 3D, análise de movimento e realidade aumentada. 
       Features são pontos de interesse em uma imagem que possuem propriedades únicas, como cantos, bordas ou texturas, e que podem ser identificadas de forma robusta mesmo em diferentes condições de iluminação, perspectiva ou escala.
-      Neste trabalho, abordamos a detecção de características em imagens e vídeos, utilizando dois métodos clássicos de detecção: Good Features to Track e SURF (Speeded Up Robust Features).
+      Neste trabalho, abordamos a detecção de características em imagens e vídeos, utilizando um dos métodos clássicos de detecção: Good Features to Track.
       Os experimentos tem o objetivo de explorar e comparar o desempenho desses métodos em cenários com imagens estáticas e magens capturadas ao vivo.
     </p>
     
     <h2>2. Fundamentos básicos</h2>
-    <p>As features são pontos de interesse em uma imagem que podem ser usados para tarefas como rastreamento, reconhecimento de padrões ou reconstrução 3D. No experimento, utilizamos dois métodos clássicos:
-
-    <ul>
-      <li><strong>Good Features to Track (cv::goodFeaturesToTrack): </strong>
-        Este método identifica pontos de interesse em uma imagem, com base na variação de intensidade ao redor de cada ponto. 
-        Ele utiliza um critério de qualidade para selecionar as melhores características para rastreamento em sequências de imagens.
-      </li>
-      <li><strong>SURF (cv::xfeatures2d::SURF): </strong>
-        O SURF é um detector de características baseado em uma abordagem que combina a detecção de pontos de interesse com a geração de descritores robustos. 
-        O algoritmo é altamente eficiente, mesmo em imagens com variações de escala e rotação.
-      </li>
-    </ul>
+    <p>O método <strong>goodFeaturesToTrack</strong> no OpenCV é uma técnica amplamente utilizada para detectar pontos de interesse em uma imagem, também conhecidos como features ou cantos. 
+      Ele é baseado no algoritmo Shi-Tomasi, que é uma extensão do algoritmo de detecção de cantos de Harris. 
+      A função considera pequenas janelas (ou blocos) da imagem, com base na variação de intensidade ao redor de cada ponto, calcula a matriz de autocorrelação dos gradientes para cada janela, determinando como a intensidade muda em diferentes direções.
+      Essa funcionalidade é especialmente útil em aplicações onde os pontos detectados são usados para tarefas como rastreamento em tempo real ou análise de movimento em vídeos.
     
     <h2>3. Materiais e Métodos</h2>
     <h3>A) Materiais</h3>
@@ -84,12 +76,12 @@
 
     <p>Para cada item do projeto, criamos o arquivo em C++, responsável por implementar as funcionalidades do programa.</p>
     <ul>
-        <li><strong>Item 1:</strong> Programa realiza a deteção de Features. Neste Lab, utilizamos utilize os videos com movimento lento e com movimento rápido gravados no Lab 1.</li>
+        <li><strong>Item 1:</strong> Programa realiza a deteção de Features. Neste Lab, utilizamos as imagens de objetos coletados em labs anteriores</li>
         <p>Foi utilizada o biblioteca do OpenCV para aplicar os métodos de deteção de Features. O método <code>goodFeaturesToTrack </code> será utilizado para detectar pontos de interesse.</p>
         <p>Código Fonte:</p>
         <pre class="theme-atom-one-light"><code id="code-sub-video" class="hljs"></code></pre>
         
-        <li><strong>Item 2:</strong> Programa que realiza a subtração de fundo do item fazendo a leitura de imagem da webcam. Além disso, o progrma deve salvar os trechos de video.</li>
+        <li><strong>Item 2:</strong> Programa que realiza a deteção de Features fazendo a leitura de imagem da webcam. Além disso, o progrma deve salvar os trechos de video.</li>
         <p>Foi utilizada os mesmos métodos de deteção de Features do item anterior. Neste item, vamos fazer a leitura de imagem da webcam e utilizamos a classe <code>cv::VideoWriter</code> para gravar os quadros processados em um arquivo de vídeo.</p>
         <p>Código Fonte:</p>
         <pre class="theme-atom-one-light"><code id="code-sub-webcam" class="hljs"></code></pre>
@@ -100,20 +92,28 @@
     <h2>4. Resultados e Análises</h2>
     <p>Utilizando os programas desenvolvidos e seguindo o roteiro dado, obtivemos os seguintes resultados:</p>
     <h3>Item 1:</h3>
-    <p>Vídeo de objeto com mudanças lentas de movimento</p>
+    <p>Imegem objeto 1</p>
     <div class="videocontainer">
       <div>
-        <p><strong>Video original:</strong></p>
-        <video width="320" height="240" controls autoplay>
-          <source src="lab05_1/objeto_devagar.mp4" type="video/mp4">
-        </video>
+        <p><strong>Imagem original:</strong></p>
+        <img src="lab6_1/foto.jpg" alt="Imagem 1" height="360" width="480">
       </div>
       <div>
-        <p><strong>Video resultado:</strong></p>
-        <video width="320" height="240" controls autoplay>
-          <source src="lab05_1/objeto_devagar_mask_MOG2.mp4" type="video/mp4">
-        </video>
-      </div>      
+        <p><strong>Imagem com feature com 96 bordas:</strong></p>
+        <img src="lab6_1/foto_96_corners.jpg" alt="Imagem 1" height="360" width="480">
+      </div>    
+    </div>
+
+    <p>Imegem objeto 2</p>
+    <div class="videocontainer">
+      <div>
+        <p><strong>Imagem original:</strong></p>
+        <img src="lab6_1/foto.jpg" alt="Imagem 1" height="360" width="480">
+      </div>
+      <div>
+        <p><strong>Imagem com feature com 96 bordas:</strong></p>
+        <img src="lab6_1/foto_96_corners.jpg" alt="Imagem 1" height="360" width="480">
+      </div>    
     </div>
 
 
