@@ -18,7 +18,7 @@ void goodFeaturesToTrack_Demo( int, void* );
  
 int main( int argc, char** argv )
 {
-    CommandLineParser parser( argc, argv, "{@input | pic3.png | input image}" );
+    // CommandLineParser parser( argc, argv, "{@input | pic3.png | input image}" );
     src = imread("foto.jpg");
     if( src.empty() )
     {
@@ -27,8 +27,6 @@ int main( int argc, char** argv )
         return -1;
     }
     cvtColor( src, src_gray, COLOR_BGR2GRAY );
- 
-    namedWindow( source_window );
  
     createTrackbar( "Max corners:", source_window, &maxCorners, maxTrackbar, goodFeaturesToTrack_Demo );
  
