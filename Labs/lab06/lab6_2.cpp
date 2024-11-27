@@ -1,94 +1,111 @@
-#include <opencv2/opencv.hpp>
-#include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/features2d.hpp>
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include "opencv2/videoio.hpp"
 #include <iostream>
 
-void detectShiTomasi(const cv::Mat& src, cv::Mat& output) {
-    cv::Mat gray;
-    cv::cvtColor(src, gray, cv::COLOR_BGR2GRAY);
+using namespace cv;
+using namespace std;
 
-    // Detect good features to track
-    std::vector<cv::Point2f> corners;
-    int maxCorners = 50;
-    double qualityLevel = 0.01;
-    double minDistance = 10;
-    cv::goodFeaturesToTrack(gray, corners, maxCorners, qualityLevel, minDistance);
+Mat src, src_gray;
+int maxCorners = 23;
+int maxTrackbar = 100;
+RNG rng(12345);
 
-    output = src.clone();
-    // Draw corners on the image
-    for (const auto& corner : corners) {
-        cv::circle(output, corner, 5, cv::Scalar(0, 255, 0), -1);
-    }
-}
+const char* source_window = "Live Feed";
+const char* features_window = "Features Detected";
 
-void detectFeatures(const cv::Mat& src, cv::Mat& output) {
-    cv::Mat gray;
-    cv::cvtColor(src, gray, cv::COLOR_BGR2GRAY);
+void goodFeaturesToTrack_Demo(Mat& frame, Mat& outputFrame);
 
-    // Create feature detector
-    cv::Ptr<cv::FeatureDetector> detector = cv::ORB::create();
-
-    // Detect keypoints
-    std::vector<cv::KeyPoint> keypoints;
-    detector->detect(gray, keypoints);
-
-    output = src.clone();
-    // Draw keypoints on the image
-    cv::drawKeypoints(src, keypoints, output, cv::Scalar(0, 0, 255), cv::DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
-}
-
-int main() {
-    cv::VideoCapture cap(0); // Open the default camera (webcam)
-    if (!cap.isOpened()) {
-        std::cerr << "Error: Cannot open the webcam!" << std::endl;
+int main(int argc, char** argv)
+{
+    VideoCapture cap(0);
+    if (!cap.isOpened())
+    {
+        cout << "Could not open the webcam!\n" << endl;
         return -1;
     }
 
-    cv::namedWindow("Original", cv::WINDOW_NORMAL);
-    cv::namedWindow("Shi-Tomasi Features", cv::WINDOW_NORMAL);
-    cv::namedWindow("ORB Features", cv::WINDOW_NORMAL);
+    int frame_width = static_cast<int>(cap.get(CAP_PROP_FRAME_WIDTH));
+    int frame_height = static_cast<int>(cap.get(CAP_PROP_FRAME_HEIGHT));
+    Size frame_size(frame_width, frame_height);
 
-    int frameCount = 0;
+    VideoWriter videoWriter("features_detected.avi", VideoWriter::fourcc('M', 'J', 'P', 'G'), 30, frame_size);
 
-    while (true) {
-        cv::Mat frame, shiTomasiOutput, orbOutput;
-        cap >> frame; // Capture a new frame from the webcam
+    if (!videoWriter.isOpened())
+    {
+        cout << "Could not open the video file for saving!\n" << endl;
+        return -1;
+    }
 
-        if (frame.empty()) {
-            std::cerr << "Error: Captured empty frame!" << std::endl;
+    namedWindow(source_window);
+    namedWindow(features_window);
+    createTrackbar("Max corners:", features_window, &maxCorners, maxTrackbar);
+
+    while (true)
+    {
+        Mat frame;
+        cap >> frame;
+        if (frame.empty())
+        {
+            cout << "No frame captured. Exiting...\n" << endl;
             break;
         }
 
-        // Detect features using Shi-Tomasi
-        detectShiTomasi(frame, shiTomasiOutput);
+        Mat outputFrame;
+        goodFeaturesToTrack_Demo(frame, outputFrame);
 
-        // Detect features using ORB
-        detectFeatures(frame, orbOutput);
+        imshow(source_window, frame);
+        imshow(features_window, outputFrame);
 
-        // Show the frames
-        cv::imshow("Original", frame);
-        cv::imshow("Shi-Tomasi Features", shiTomasiOutput);
-        cv::imshow("ORB Features", orbOutput);
+        videoWriter.write(outputFrame);
 
-        // Save the frames periodically (e.g., every 50 frames)
-        if (frameCount % 50 == 0) {
-            std::string shiTomasiFile = "webcam_shitomasi_" + std::to_string(frameCount) + ".jpg";
-            std::string orbFile = "webcam_orb_" + std::to_string(frameCount) + ".jpg";
-            cv::imwrite(shiTomasiFile, shiTomasiOutput);
-            cv::imwrite(orbFile, orbOutput);
-        }
-
-        frameCount++;
-
-        // Break the loop if the user presses 'q'
-        if (cv::waitKey(1) == 'q') {
+        if (waitKey(1) == 'q')
+        {
+            imwrite("foto_feature.jpg", outputFrame);
+            cout << "Exiting...\n" << endl;
             break;
         }
     }
 
     cap.release();
-    cv::destroyAllWindows();
+    videoWriter.release();
+    destroyAllWindows();
     return 0;
+}
+
+void goodFeaturesToTrack_Demo(Mat& frame, Mat& outputFrame)
+{
+    // Convert to grayscale
+    cvtColor(frame, src_gray, COLOR_BGR2GRAY);
+
+    maxCorners = MAX(maxCorners, 1);
+    vector<Point2f> corners;
+    double qualityLevel = 0.01;
+    double minDistance = 10;
+    int blockSize = 3, gradientSize = 3;
+    bool useHarrisDetector = false;
+    double k = 0.04;
+
+    outputFrame = frame.clone();
+
+    // Detect corners
+    goodFeaturesToTrack(src_gray,
+                        corners,
+                        maxCorners,
+                        qualityLevel,
+                        minDistance,
+                        Mat(),
+                        blockSize,
+                        gradientSize,
+                        useHarrisDetector,
+                        k);
+
+    cout << "** Number of corners detected: " << corners.size() << endl;
+
+    int radius = 4;
+    for (size_t i = 0; i < corners.size(); i++)
+    {
+        circle(outputFrame, corners[i], radius, Scalar(rng.uniform(0, 255), rng.uniform(0, 256), rng.uniform(0, 256)), FILLED);
+    }
 }
