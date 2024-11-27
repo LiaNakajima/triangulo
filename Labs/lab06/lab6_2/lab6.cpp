@@ -62,7 +62,6 @@ int main(int argc, char** argv)
 
         if (waitKey(1) == 'q')
         {
-            imwrite("foto_feature.jpg", outputFrame);
             cout << "Exiting...\n" << endl;
             break;
         }

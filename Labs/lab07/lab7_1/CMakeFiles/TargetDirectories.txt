@@ -1,0 +1,3 @@
+/home/ufabc/pvideo_iz/triangulo.github.io/Labs/lab07/lab7_1/CMakeFiles/lab7.dir
+/home/ufabc/pvideo_iz/triangulo.github.io/Labs/lab07/lab7_1/CMakeFiles/edit_cache.dir
+/home/ufabc/pvideo_iz/triangulo.github.io/Labs/lab07/lab7_1/CMakeFiles/rebuild_cache.dir
