@@ -95,22 +95,22 @@
     <p>Imegem figuras</p>
     <div class="videocontainer">
       <div>
-        <p><strong>Imagem original:</strong></p>
+        <p>Imagem original:</p>
         <img src="lab6_1/Objeto.jpg" alt="Imagem 1" height="360" width="480">
       </div>
       <div>
-        <p><strong>Imagem com feature com 96 bordas:</strong></p>
+        <p>Imagem com feature com 96 bordas:</p>
         <img src="lab6_1/Objeto_96_corners.jpg" alt="Imagem 1" height="360" width="480">
       </div>    
     </div>
     <p>Imegem objeto</p>
     <div class="videocontainer">
       <div>
-        <p><strong>Imagem original:</strong></p>
+        <p>Imagem original:</p>
         <img src="lab6_1/foto.jpg" alt="Imagem 1" height="360" width="480">
       </div>
       <div>
-        <p><strong>Imagem com feature com 96 bordas:</strong></p>
+        <p>Imagem com feature com 96 bordas:</p>
         <img src="lab6_1/foto_96_corners.jpg" alt="Imagem 1" height="360" width="480">
       </div>    
     </div>
@@ -119,7 +119,7 @@
     <h4>Vídeo com o tabuleiro xadrez preto e branco</h4>
     <div class="videocontainer">
       <div>
-        <p><strong>Video resultado:</strong></p>
+        <p>Video resultado:</p>
         <video width="320" height="240" controls autoplay>
           <source src="lab6_2/xadrez/features_detected.mp4" type="video/mp4">
         </video>
@@ -129,15 +129,21 @@
     <h4>Vídeo do grupo</h4>
     <div class="videocontainer">
       <div>
-        <p><strong>Video resultado:</strong></p>
+        <p>Video resultado:</p>
         <video width="320" height="240" controls autoplay>
-          <source src="lab6_2/Grupo/features_detected.mp4" type="video/mp4">
+          <source src="lab6_2/grupo/features_detected.mp4" type="video/mp4">
         </video>
       </div>
     </div>
 
     <h2>5. Conclusões e Comentários Finais </h2>
     <p>
+      Nesta atividade, foi implementada a detecção de pontos de interesse em imagens utilizando o método <code>goodFeaturesToTrack</code> da biblioteca OpenCV. 
+      A aplicação foi adaptada para processar tanto imagens estáticas quanto capturas ao vivo de uma webcam, permitindo uma análise dinâmica e interativa. 
+      Além disso, o sistema foi estendido para gravar um vídeo com as features detectadas, integrando funcionalidades de visualização e armazenamento.
+      O método <code>goodFeaturesToTrack</code>, baseado no algoritmo Shi-Tomasi, demonstrou ser eficaz na identificação de pontos significativos, como cantos e bordas da figura 1 
+      e do vídeo do tabuleiro de xadrez utilizado no experimento. Porém, o algoritmo apresentou limitações em condições de baixa iluminação ou alta complexidade de cena, como no video do grupo e na imagem do grampeador.
+      Nesses caoso, técnicas mais avançadas, como detecção baseada em descritores (SIFT ou SURF), poderiam ser mais adequadas.
     </p>
     <h2>6. Referências </h2>
     <p><a href="https://docs.opencv.org/4.x/df/d54/tutorial_py_features_meaning.html">Understanding Features</a></p>
