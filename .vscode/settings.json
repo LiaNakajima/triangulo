@@ -15,6 +15,7 @@
         "algorithm": "cpp",
         "ostream": "cpp",
         "initializer_list": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "string": "cpp"
     }
 }

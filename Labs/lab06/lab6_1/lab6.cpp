@@ -18,8 +18,9 @@ void goodFeaturesToTrack_Demo( int, void* );
  
 int main( int argc, char** argv )
 {
-    // CommandLineParser parser( argc, argv, "{@input | pic3.png | input image}" );
-    src = imread("foto.jpg");
+    CommandLineParser parser( argc, argv, "{@input | pic3.png | input image}" );
+    src = imread("Objeto.png");
+    //src = imread( samples::findFile( parser.get<String>( "@input" ) ) );
     if( src.empty() )
     {
         cout << "Could not open or find the image!\n" << endl;
@@ -28,9 +29,11 @@ int main( int argc, char** argv )
     }
     cvtColor( src, src_gray, COLOR_BGR2GRAY );
  
+    namedWindow( source_window );
     createTrackbar( "Max corners:", source_window, &maxCorners, maxTrackbar, goodFeaturesToTrack_Demo );
  
     goodFeaturesToTrack_Demo( 0, 0 );
+    //imwrite("Objeto.jpg", src);
  
     waitKey();
     return 0;
@@ -67,7 +70,7 @@ void goodFeaturesToTrack_Demo( int, void* )
         circle( copy, corners[i], radius, Scalar(rng.uniform(0,255), rng.uniform(0, 256), rng.uniform(0, 256)), FILLED );
     }
  
-    imwrite("foto_" + to_string(corners.size()) + "_corners.jpg", copy);
+    imwrite("Objeto_" + to_string(corners.size()) + "_corners.jpg", copy);
     namedWindow( source_window );
     imshow( source_window, copy );
 }
