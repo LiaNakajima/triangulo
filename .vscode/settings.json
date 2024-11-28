@@ -16,7 +16,8 @@
         "ostream": "cpp",
         "initializer_list": "cpp",
         "vector": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "sstream": "cpp"
     },
     "cmake.sourceDirectory": "/home/ufabc/pvideo_iz/triangulo.github.io/Labs/lab01"
 }

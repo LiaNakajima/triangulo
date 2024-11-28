@@ -17,7 +17,7 @@ int main( int argc, const char** argv )
                              "{help h||}"
                              "{face_cascade|haarcascades/haarcascade_frontalface_alt.xml|Path to face cascade.}"
                              "{eyes_cascade|haarcascades/haarcascade_eye_tree_eyeglasses.xml|Path to eyes cascade.}"
-                             "{image|example.jpg|Path to input image.}");
+                             "{image|foto_original.jpg|Path to input image.}");
 
     parser.about( "\nThis program demonstrates using the cv::CascadeClassifier class to detect objects (Face + eyes) in an image.\n"
                  "You can use Haar or LBP features.\n\n" );
@@ -50,10 +50,7 @@ int main( int argc, const char** argv )
     //-- 3. Apply the classifier to the image
     detectAndDisplay(frame);
 
-    if( waitKey(10) == 27 )
-    {
-        break; // escape
-    }
+    waitKey();
     return 0;
 }
 
@@ -87,5 +84,6 @@ void detectAndDisplay( Mat frame )
     }
 
     //-- Show what you got
+    imwrite("foto_original.jpg", frame);
     imshow("Image - Face detection", frame );
 }
