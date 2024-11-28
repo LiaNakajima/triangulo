@@ -6,7 +6,7 @@
       overflow:auto;
     }
     div.videocontainer div {
-      width:33%;  
+      width:25%;  
       float:left;
     }
     </style>
@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Relatório do Laboratório 6</title>
+    <title>Relatório do Laboratório 7</title>
 
     <style>h3{margin-top: 1.5em;}</style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
@@ -23,17 +23,17 @@
     <script>
       async function load_code()
       {
-        lab6_1 = fetch("lab6_1.cpp");
-        lab6_2 = fetch("lab6_2.cpp");
+        lab7_1 = fetch("lab7_1.cpp");
+        lab7_2 = fetch("lab7_2.cpp");
         promise_cmk = fetch("CMakeLists.txt");
 
-        response = await lab6_1;
+        response = await lab7_1;
         code = await response.text();
-        document.getElementById("code-sub-video").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+        document.getElementById("code-img").innerHTML = hljs.highlight(code, {language: "c++"}).value;
 
-        response = await lab6_2;
+        response = await lab7_2;
         code = await response.text();
-        document.getElementById("code-sub-webcam").innerHTML = hljs.highlight(code, {language: "c++"}).value;
+        document.getElementById("code-webcam").innerHTML = hljs.highlight(code, {language: "c++"}).value;
 
         response = await promise_cmk;
         code = await response.text();
@@ -45,9 +45,54 @@
     <h1>Relatório do Laboratório 7</h1>
 
     <h2>1. Introdução</h2>
-    
+    <p>
+      Este experimento aborda a implementação de técnicas de visão computacional para detecção de objetos e rostos utilizando o Cascade Classifier, 
+      um método empregado em aplicações de reconhecimento de padrões devido à sua eficiência e precisão. A teoria subjacente ao uso de classificadores em cascata, 
+      baseada em algoritmos como Haar Cascade, é explorada com referência às bibliotecas e ferramentas do OpenCV, conforme documentado no guia oficial da versão 4.x.
+    </p>
+    <p>
+      Nos experimentos desenvolvemos programas em C++ para detectar objetos e rostos em diferentes contextos, como imagens pré-carregadas e transmissões de vídeo em tempo real. 
+      O primeiro experimento envolve a leitura de imagens estáticas, incluindo fotos dos membros da equipe e frames de vídeos previamente trabalhados. 
+      O segundo expande a funcionalidade para captura ao vivo por meio de uma webcam, incorporando o processamento em tempo real e a possibilidade de salvar imagens processadas ao pressionar uma tecla.
+    </p>
     <h2>2. Fundamentos básicos</h2>
-    
+    <p>
+      O <em>Cascade Classifier</em> é um método de aprendizado supervisionado usado para detecção de objetos, popularizado pelo uso de características de Haar. Ele funciona como uma sequência de classificadores em cascata, onde cada etapa avalia uma região específica de uma imagem para determinar a presença de um objeto de interesse.
+    </p>
+    <ul>
+        <li>
+            <strong>Características de Haar:</strong> São padrões de intensidade calculados em regiões da imagem. Essas características ajudam a distinguir entre regiões de interesse (como rostos) e o fundo.
+        </li>
+        <li>
+            <strong>Treinamento do Modelo:</strong> O classificador é treinado com um grande conjunto de imagens positivas (com o objeto) e negativas (sem o objeto). Isso resulta em um modelo XML que pode ser aplicado para detecção.
+        </li>
+        <li>
+            <strong>Processamento em Cascata:</strong> O modelo analisa janelas da imagem em várias etapas. Cada etapa descarta regiões que não correspondem ao objeto, reduzindo a carga computacional para as etapas posteriores.
+        </li>
+        <li>
+            <strong>Escalabilidade:</strong> O algoritmo pode redimensionar janelas de análise para detectar objetos em diferentes tamanhos.
+        </li>
+    </ul>
+
+    <p>O experimento foi dividido em duas etapas, utilizando programas em C++ com a biblioteca OpenCV:</p>
+    <p><strong>1. Detecção em Imagens Estáticas</strong></p>
+    <ul>
+        <li>Leitura de imagens dos membros da equipeou quadros de vídeos.</li>
+        <li>Carregamento de um modelo XML Haarcascade, como <code>haarcascade_frontalface_default.xml</code> ou outro, para realizar a detecção.</li>
+        <li>Uso da função <code>CascadeClassifier.detectMultiScale()</code> para identificar objetos ou rostos nas imagens.</li>
+        <li>Marcação das regiões detectadas com retângulos de cores contrastantes, utilizando <code>cv::rectangle()</code>.</li>
+        <li>Exibição das imagens processadas em uma janela e salvamento das imagens ao pressionar uma tecla com <code>cv::imwrite()</code>.</li>
+    </ul>
+    <p><strong>2. Detecção em Vídeo ao Vivo</strong></p>
+    <ul>
+        <li>Modificação do programa anterior para leitura de imagens capturadas pela webcam, utilizando <code>cv::VideoCapture</code>.</li>
+        <li>Processamento em tempo real para identificar objetos/rostos na imagem capturada.</li>
+        <li>Exibição contínua do vídeo com a identificação em uma janela ao vivo.</li>
+        <li>Salvamento da imagem processada ao toque de uma tecla.</li>
+    </ul>
+    <p>
+        Ambos os programas destacam a facilidade de integração do <em>Cascade Classifier</em> com o OpenCV, permitindo uma implementação eficiente para a detecção de objetos e rostos em diferentes contextos.
+    </p>
     <h2>3. Materiais e Métodos</h2>
     <h3>A) Materiais</h3>
     <p>Para realizar a atividade, utilizamos os seguintes recursos:</p>
@@ -65,12 +110,61 @@
     <p>Código Fonte:</p>
     <pre class="theme-atom-one-light"><code id="code-cmk" class="hljs"></code></pre>
 
+    <p>Para cada item do projeto, criamos o arquivo em C++, responsável por implementar as funcionalidades do programa.</p>
+    <ul>
+        <li><strong>Item 1:</strong> Programa identifica os rostos nas imagens. Neste Lab, utilizamos as imagens dos membros do grupo que foram coletados em labs anteriores</li>
+        <p>O método <code>CascadeClassifier.detectMultiScale()</code> da biblioteca do OpenCV será utilizado para a deteção de rostos.</p>
+        <p>Código Fonte:</p>
+        <pre class="theme-atom-one-light"><code id="code-img" class="hljs"></code></pre>
+        
+        <li><strong>Item 2:</strong> Programa identifica os rostos fazendo a leitura de imagem da webcam. Além disso, o progrma deve salvar os trechos de video.</li>
+        <p>Foi utilizada os mesmos métodos de deteção de rostos do item anterior. Neste item, vamos fazer a leitura de imagem da webcam e utilizamos a classe <code>cv::VideoWriter</code> para gravar os quadros processados em um arquivo de vídeo.</p>
+        <p>Código Fonte:</p>
+        <pre class="theme-atom-one-light"><code id="code-webcam" class="hljs"></code></pre>
+    </ul>
+
     <p>Após a criação desses arquivos, os comandos "cmake ." e, posteriormente, "make" foram executados no terminal para compilar o programa e gerar o arquivo executável correspondente.</p>
     
     <h2>4. Resultados e Análises</h2>
+    <p>Utilizando os programas desenvolvidos e seguindo o roteiro dado, obtivemos os seguintes resultados:</p>
+    <h3>Item 1:</h3>
+    <div class="videocontainer">
+      <div>
+        <p>Detecção do rosto da imagem Lia</p>
+        <img src="lab7_1/Lia.jpg" alt="Imagem 1" height="360" width="480">
+      </div>
+      <div>
+        <p>Detecção do rosto da imagem Gabriel</p>
+        <img src="lab7_1/Gabriel.jpg" alt="Imagem 1" height="360" width="480">
+      </div>
+      <div>
+        <p>Detecção do rosto da imagem Felipe</p>
+        <img src="lab7_1/Felipe.jpg" alt="Imagem 1" height="360" width="480">
+      </div>
+      <div>
+        <p>Detecção do rosto da imagem Leonardo</p>
+        <img src="lab7_1/Leonardo.jpg" alt="Imagem 1" height="360" width="480">
+      </div> 
+    </div>
+
+    <h3>Item 2:</h3>
+    <div class="videocontainer">
+      <div>
+        <p>Detecção do rosto utilizando a Webcam</p>
+        <img src="lab7_2/imagem.jpg" alt="Imagem 1" height="360" width="480">
+      </div>
+    </div>
 
     <h2>5. Conclusões e Comentários Finais </h2>
     <p>
+        Este trabalho foi possível compreender as limitações e as potencialidades do <em>Cascade Classifier</em> em tarefas de detecção de objetos e rostos, tanto em imagens estáticas quanto em vídeos ao vivo. 
+        Embora eficiente para detecção de padrões previamente treinados, o desempenho pode ser comprometido por fatores como iluminação inadequada, variações de ângulo ou objetos similares no fundo. 
+        Como nos caso da detecção em vídeos ao vivo, o uso de uma webcam proporcionou um desafio adicional ao lidar com dados dinâmicos e ruídos de captura. 
+        Isso reforça a necessidade de calibração cuidadosa e, em alguns casos, a adoção de abordagens complementares, como redes neurais convolucionais, para tarefas mais complexas.
+        Ainda assim, o algoritmo mostrou-se suficientemente eficiente para identificar objetos em diferentes condições.
+    </p>
+    <p>
+        Em resumo, o projeto contribuiu significativamente para o aprendizado prático dos conceitos de visão computacional, mostrando como as ferramentas disponíveis podem ser aplicadas para resolver problemas reais de forma eficiente e precisa.
     </p>
     <h2>6. Referências </h2>
     <p><a href="https://docs.opencv.org/4.x/db/d28/tutorial_cascade_classifier.html">Cascade Classifier</a></p>
