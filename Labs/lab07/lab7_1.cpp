@@ -1,73 +1,91 @@
-#include <opencv2/opencv.hpp>
-#include <opencv2/objdetect.hpp>
+#include "opencv2/objdetect.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
 #include <iostream>
 
-void detectAndDisplay(cv::Mat& frame, cv::CascadeClassifier& cascade, const std::string& windowName) {
-    std::vector<cv::Rect> objects;
-    cv::Mat frameGray;
+using namespace std;
+using namespace cv;
 
-    // Converter para escala de cinza para melhor desempenho
-    cv::cvtColor(frame, frameGray, cv::COLOR_BGR2GRAY);
-    cv::equalizeHist(frameGray, frameGray);
+void detectAndDisplay( Mat frame );
 
-    // Detectar objetos
-    cascade.detectMultiScale(frameGray, objects, 1.1, 3, 0 | cv::CASCADE_SCALE_IMAGE, cv::Size(30, 30));
+CascadeClassifier face_cascade;
+CascadeClassifier eyes_cascade;
 
-    // Desenhar retângulos ao redor dos objetos detectados
-    for (const auto& obj : objects) {
-        cv::rectangle(frame, obj, cv::Scalar(0, 255, 0), 2); // Verde para rostos
+int main( int argc, const char** argv )
+{
+    CommandLineParser parser(argc, argv,
+                             "{help h||}"
+                             "{face_cascade|haarcascades/haarcascade_frontalface_alt.xml|Path to face cascade.}"
+                             "{eyes_cascade|haarcascades/haarcascade_eye_tree_eyeglasses.xml|Path to eyes cascade.}"
+                             "{image|example.jpg|Path to input image.}");
+
+    parser.about( "\nThis program demonstrates using the cv::CascadeClassifier class to detect objects (Face + eyes) in an image.\n"
+                 "You can use Haar or LBP features.\n\n" );
+    parser.printMessage();
+
+    String face_cascade_name = samples::findFile( parser.get<String>("face_cascade") );
+    String eyes_cascade_name = samples::findFile( parser.get<String>("eyes_cascade") );
+    String image_path = parser.get<String>("image");
+
+    //-- 1. Load the cascades
+    if( !face_cascade.load( face_cascade_name ) )
+    {
+        cout << "--(!)Error loading face cascade\n";
+        return -1;
+    };
+    if( !eyes_cascade.load( eyes_cascade_name ) )
+    {
+        cout << "--(!)Error loading eyes cascade\n";
+        return -1;
+    };
+
+    //-- 2. Read the image
+    Mat frame = imread(image_path);
+    if (frame.empty())
+    {
+        cout << "--(!)Error loading image\n";
+        return -1;
     }
 
-    // Exibir a imagem com as detecções
-    cv::imshow(windowName, frame);
+    //-- 3. Apply the classifier to the image
+    detectAndDisplay(frame);
+
+    if( waitKey(10) == 27 )
+    {
+        break; // escape
+    }
+    return 0;
 }
 
-int main() {
-    // Carregar o modelo Haarcascade
-    std::string cascadePath = "haarcascade_frontalface_default.xml"; // Substitua pelo modelo desejado
-    cv::CascadeClassifier cascade;
-    if (!cascade.load(cascadePath)) {
-        std::cerr << "Erro ao carregar o modelo Haarcascade!" << std::endl;
-        return -1;
-    }
+void detectAndDisplay( Mat frame )
+{
+    Mat frame_gray;
+    cvtColor( frame, frame_gray, COLOR_BGR2GRAY );
+    equalizeHist( frame_gray, frame_gray );
 
-    // Leitura de imagens
-    cv::Mat teamImage = cv::imread("team.jpg");  // Substitua pelo caminho da imagem da equipe
-    cv::Mat avatarImage = cv::imread("avatars.jpg"); // Substitua pelo caminho da imagem com avatares
-    if (teamImage.empty() || avatarImage.empty()) {
-        std::cerr << "Erro ao carregar as imagens!" << std::endl;
-        return -1;
-    }
+    //-- Detect faces
+    std::vector<Rect> faces;
+    face_cascade.detectMultiScale( frame_gray, faces );
 
-    // Detectar e exibir rostos/objetos nas imagens
-    detectAndDisplay(teamImage, cascade, "Imagem da Equipe");
-    detectAndDisplay(avatarImage, cascade, "Imagem dos Avatares");
+    for ( size_t i = 0; i < faces.size(); i++ )
+    {
+        Point center( faces[i].x + faces[i].width/2, faces[i].y + faces[i].height/2 );
+        ellipse( frame, center, Size( faces[i].width/2, faces[i].height/2 ), 0, 0, 360, Scalar( 255, 0, 255 ), 4 );
 
-    // Leitura de vídeo
-    cv::VideoCapture videoCapture(0); // Use 0 para webcam ou substitua pelo caminho do vídeo
-    if (!videoCapture.isOpened()) {
-        std::cerr << "Erro ao acessar o vídeo!" << std::endl;
-        return -1;
-    }
+        Mat faceROI = frame_gray( faces[i] );
 
-    std::cout << "Pressione 's' para salvar uma imagem ou 'q' para sair." << std::endl;
+        //-- In each face, detect eyes
+        std::vector<Rect> eyes;
+        eyes_cascade.detectMultiScale( faceROI, eyes );
 
-    // Processar o vídeo quadro a quadro
-    cv::Mat frame;
-    while (videoCapture.read(frame)) {
-        detectAndDisplay(frame, cascade, "Vídeo");
-
-        char key = cv::waitKey(30);
-        if (key == 's') {
-            // Salvar a imagem com as detecções
-            static int savedCount = 0;
-            std::string filename = "detected_" + std::to_string(savedCount++) + ".jpg";
-            cv::imwrite(filename, frame);
-            std::cout << "Imagem salva: " << filename << std::endl;
-        } else if (key == 'q') {
-            break;
+        for ( size_t j = 0; j < eyes.size(); j++ )
+        {
+            Point eye_center( faces[i].x + eyes[j].x + eyes[j].width/2, faces[i].y + eyes[j].y + eyes[j].height/2 );
+            int radius = cvRound( (eyes[j].width + eyes[j].height)*0.25 );
+            circle( frame, eye_center, radius, Scalar( 255, 0, 0 ), 4 );
         }
     }
 
-    return 0;
+    //-- Show what you got
+    imshow("Image - Face detection", frame );
 }
