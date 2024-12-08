@@ -33,7 +33,6 @@ int main() {
         "https://3d30a042367404fa.mediapackage.sa-east-1.amazonaws.com/out/v1/1daf9b25f82441f7b581caa21b76c6e0/CMAF_HLS/index.m3u8",
         "https://3d30a042367404fa.mediapackage.sa-east-1.amazonaws.com/out/v1/6c9dc97655114f5ebb776047bf011172/CMAF_HLS/index.m3u8"
     };
-
     // Lista com os locais das câmeras
     std::vector<std::string> cameraLocations = {
         "M 110 - Taubate, SP",
@@ -64,6 +63,15 @@ int main() {
     // Focar apenas em algumas classes específicas, por exemplo, carros (ID 2), motos (ID 3), caminhões (ID 7)
     std::vector<int> vehicleClassIds = {2, 3, 5, 7};  // IDs de carros, motos, caminhões, ônibus
 
+    // Parâmetros de filtro
+    int filterType = 0;  // Tipo de filtro: 0 = original, 1 = mediano, 2 = blur, 3 = gaussiano, 4 = bilateral
+    int kernelSize = 3;  // Tamanho inicial do kernel
+    std::string filterName = "Original";  // Nome do filtro
+
+    // Definir limites para o tamanho do kernel
+    const int minKernelSize = 3;
+    const int maxKernelSize = 15;
+
     // Processar frames do stream
     cv::Mat frame;
     while (true) {
@@ -75,21 +83,40 @@ int main() {
         // Aplicar aumento de contraste e brilho
         frame.convertTo(frame, -1, alpha, beta);
 
-        // Reduzir a resolução da imagem para melhorar o desempenho
-        cv::Mat blob;
-        cv::dnn::blobFromImage(frame, blob, 1 / 255.0, cv::Size(320, 320), cv::Scalar(), true, false);
+        // Aplicar o filtro de acordo com o tipo selecionado
+        cv::Mat filteredFrame = frame.clone();
+        switch (filterType) {
+            case 1:
+                cv::medianBlur(frame, filteredFrame, kernelSize);
+                filterName = "Mediano";
+                break;
+            case 2:
+                cv::blur(frame, filteredFrame, cv::Size(kernelSize, kernelSize));
+                filterName = "Blur";
+                break;
+            case 3:
+                cv::GaussianBlur(frame, filteredFrame, cv::Size(kernelSize, kernelSize), 0);
+                filterName = "Gaussiano";
+                break;
+            case 4:
+                cv::bilateralFilter(frame, filteredFrame, kernelSize, 75, 75);
+                filterName = "Bilateral";
+                break;
+            default:
+                filterName = "Original";
+        }
 
-        // Passar o blob pela rede
-        net.setInput(blob);
+        // Detecção com YOLO
         std::vector<cv::Mat> outs;
+        cv::Mat blob = cv::dnn::blobFromImage(filteredFrame, 1 / 255.0, cv::Size(608, 608), cv::Scalar(0, 0, 0), true, false);
+        net.setInput(blob);
         net.forward(outs, net.getUnconnectedOutLayersNames());
 
-        // Variáveis para processar as detecções
+        std::vector<cv::Rect> boxes;
         std::vector<int> classIds;
         std::vector<float> confidences;
-        std::vector<cv::Rect> boxes;
 
-        // Processar as detecções
+        // Processar saídas do modelo YOLO
         for (size_t i = 0; i < outs.size(); ++i) {
             float* data = (float*)outs[i].data;
             for (int j = 0; j < outs[i].rows; ++j) {
@@ -97,6 +124,7 @@ int main() {
                 cv::Point classIdPoint;
                 double confidence;
                 minMaxLoc(scores, 0, &confidence, 0, &classIdPoint);
+
                 if (confidence > confidenceThreshold) {
                     int centerX = (int)(data[0] * frame.cols);
                     int centerY = (int)(data[1] * frame.rows);
@@ -104,7 +132,6 @@ int main() {
                     int height = (int)(data[3] * frame.rows);
                     cv::Rect box(centerX - width / 2, centerY - height / 2, width, height);
 
-                    // Verificar se a classe é de interesse (carros, motos, etc.)
                     int classId = classIdPoint.x;
                     if (std::find(vehicleClassIds.begin(), vehicleClassIds.end(), classId) != vehicleClassIds.end()) {
                         boxes.push_back(box);
@@ -124,16 +151,34 @@ int main() {
         for (size_t i = 0; i < indices.size(); ++i) {
             int idx = indices[i];
             cv::Rect box = boxes[idx];
-            cv::rectangle(frame, box, cv::Scalar(0, 255, 0), 2);
-            cv::putText(frame, classNames[classIds[idx]], box.tl(), cv::FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(255, 0, 0), 2);
+            cv::rectangle(filteredFrame, box, cv::Scalar(0, 255, 0), 2);
+            cv::putText(filteredFrame, classNames[classIds[idx]], box.tl(), cv::FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(255, 0, 0), 2);
         }
 
         // Adicionar o texto do local da câmera
         std::string cameraLocation = cameraLocations[current_url_index];
-        cv::putText(frame, cameraLocation, cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(0, 255, 255), 2);
+        cv::putText(filteredFrame, cameraLocation, cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(0, 255, 255), 2);
+
+        // Exibir os parâmetros ajustáveis na tela em várias linhas
+        int lineHeight = 30;
+        int yOffset = 60;
+        cv::putText(filteredFrame, "Parametros Ajustaveis:", cv::Point(10, yOffset), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(255, 255, 0), 2);
+        yOffset += lineHeight;
+
+        cv::putText(filteredFrame, "Filtro: " + filterName, cv::Point(10, yOffset), cv::FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(255, 255, 0), 2);
+        yOffset += lineHeight;
+        cv::putText(filteredFrame, "Kernel: " + std::to_string(kernelSize), cv::Point(10, yOffset), cv::FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(255, 255, 0), 2);
+        yOffset += lineHeight;
+        cv::putText(filteredFrame, "Brilho: " + std::to_string(beta), cv::Point(10, yOffset), cv::FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(255, 255, 0), 2);
+        yOffset += lineHeight;
+        cv::putText(filteredFrame, "Contraste: " + std::to_string(alpha), cv::Point(10, yOffset), cv::FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(255, 255, 0), 2);
+        yOffset += lineHeight;
+        cv::putText(filteredFrame, "Confianca: " + std::to_string(confidenceThreshold), cv::Point(10, yOffset), cv::FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(255, 255, 0), 2);
+        yOffset += lineHeight;
+        cv::putText(filteredFrame, "NMS: " + std::to_string(nmsThreshold), cv::Point(10, yOffset), cv::FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(255, 255, 0), 2);
 
         // Exibir o frame com as detecções
-        cv::imshow("YOLO Vehicle Detection", frame);
+        cv::imshow("YOLO Vehicle Detection", filteredFrame);
 
         // Aguardar a tecla pressionada
         char key = cv::waitKey(1);
@@ -169,6 +214,53 @@ int main() {
             }
 
             std::cout << "Mudando para o fluxo: " << hls_urls[current_url_index] << std::endl;
+        }
+
+        // Alterar o filtro com as teclas de atalho
+        if (key == '1') { filterType = 1; }
+        if (key == '2') { filterType = 2; }
+        if (key == '3') { filterType = 3; }
+        if (key == '4') { filterType = 4; }
+        if (key == '0') { filterType = 0; }  // Resetar para filtro original
+
+        // Ajustar o tamanho do kernel com as teclas 'K' e 'J'
+        if (key == 'K' && kernelSize < maxKernelSize) {
+            kernelSize += 2;  // Aumenta o kernel
+        }
+        if (key == 'J' && kernelSize > minKernelSize) {
+            kernelSize -= 2;  // Diminui o kernel
+        }
+
+        // Ajustar o brilho com 'b' (diminuir) e 'B' (aumentar)
+        if (key == 'b') {
+            beta -= 5;  // Diminuir brilho
+        }
+        if (key == 'B') {
+            beta += 5;  // Aumentar brilho
+        }
+
+        // Ajustar o contraste com 'c' (diminuir) e 'C' (aumentar)
+        if (key == 'c') {
+            alpha -= 0.1;  // Diminuir contraste
+        }
+        if (key == 'C') {
+            alpha += 0.1;  // Aumentar contraste
+        }
+
+        // Ajustar o limite de confiança com '+' e '-'
+        if (key == '+') {
+            confidenceThreshold += 0.05;  // Aumentar confiança
+        }
+        if (key == '-') {
+            confidenceThreshold -= 0.05;  // Diminuir confiança
+        }
+
+        // Ajustar o NMS threshold com 'n' (diminuir) e 'N' (aumentar)
+        if (key == 'm') {
+            nmsThreshold += 0.05;  // Aumentar NMS
+        }
+        if (key == 'M') {
+            nmsThreshold -= 0.05;  // Diminuir NMS
         }
     }
 
