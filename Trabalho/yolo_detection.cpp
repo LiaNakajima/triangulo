@@ -72,6 +72,12 @@ int main() {
     const int minKernelSize = 3;
     const int maxKernelSize = 15;
 
+    // Variáveis para gravação de vídeo
+    bool isRecording = false;
+    cv::VideoWriter videoWriter;
+    int frameWidth = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_WIDTH));
+    int frameHeight = static_cast<int>(cap.get(cv::CAP_PROP_FRAME_HEIGHT));
+    
     // Processar frames do stream
     cv::Mat frame;
     while (true) {
@@ -108,7 +114,7 @@ int main() {
 
         // Detecção com YOLO
         std::vector<cv::Mat> outs;
-        cv::Mat blob = cv::dnn::blobFromImage(filteredFrame, 1 / 255.0, cv::Size(608, 608), cv::Scalar(0, 0, 0), true, false);
+        cv::Mat blob = cv::dnn::blobFromImage(filteredFrame, 1 / 255.0, cv::Size(832, 832), cv::Scalar(0, 0, 0), true, false);
         net.setInput(blob);
         net.forward(outs, net.getUnconnectedOutLayersNames());
 
@@ -247,24 +253,52 @@ int main() {
             alpha += 0.1;  // Aumentar contraste
         }
 
-        // Ajustar o limite de confiança com '+' e '-'
-        if (key == '+') {
-            confidenceThreshold += 0.05;  // Aumentar confiança
-        }
-        if (key == '-') {
+        // Ajustar a confiança com as teclas 'v' e 'V'
+        if (key == 'v') {
             confidenceThreshold -= 0.05;  // Diminuir confiança
         }
+        if (key == 'V') {
+            confidenceThreshold += 0.05;  // Aumentar confiança
+        }
 
-        // Ajustar o NMS threshold com 'n' (diminuir) e 'N' (aumentar)
+        // Ajustar o threshold do NMS com as teclas 'm' e 'M'
         if (key == 'm') {
-            nmsThreshold += 0.05;  // Aumentar NMS
+            nmsThreshold -= 0.05;  // Diminuir NMS
         }
         if (key == 'M') {
-            nmsThreshold -= 0.05;  // Diminuir NMS
+            nmsThreshold += 0.05;  // Aumentar NMS
+        }
+
+        // Salvar a imagem com a tecla 's'
+        if (key == 's') {
+            cv::imwrite("captured_image.jpg", filteredFrame);  // Salvar a imagem
+            std::cout << "Imagem salva como captured_image.jpg" << std::endl;
+            cv::imwrite("captured_image_original.jpg", frame);  // Salvar a imagem
+            std::cout << "Imagem salva como captured_image_original.jpg" << std::endl;
+        }
+
+        // Gravar vídeo com 'r'
+        if (key == 'r') {
+            if (!isRecording) {
+                // Começar a gravação
+                videoWriter.open("recorded_video.avi", cv::VideoWriter::fourcc('M', 'J', 'P', 'G'), 30, cv::Size(frameWidth, frameHeight));
+                isRecording = true;
+                std::cout << "Iniciando gravação de vídeo..." << std::endl;
+            } else {
+                // Parar a gravação
+                videoWriter.release();
+                isRecording = false;
+                std::cout << "Gravação de vídeo parada." << std::endl;
+            }
+        }
+
+        // Gravar o frame se a gravação estiver ativa
+        if (isRecording) {
+            videoWriter.write(filteredFrame);
         }
     }
 
-    cap.release();
-    cv::destroyAllWindows();
+    cap.release();  // Liberar o fluxo de vídeo
+    cv::destroyAllWindows();  // Fechar todas as janelas
     return 0;
 }
