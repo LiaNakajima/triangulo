@@ -165,21 +165,30 @@
                 </tbody>
             </table>
         </section>
-                <section id="processamento-imagem">
-                    <h2>8. Tipos de Processamento de Imagem Utilizados</h2>
-                    <p>
-                        Esta seção detalha as técnicas de processamento de imagem aplicadas no código:
-                    </p>
-                    <ul>
-                        <li><strong>Modelo YOLO (You Only Look Once):</strong> Utilizado para detecção em tempo real de veículos em vídeos transmitidos por stream HLS. A arquitetura YOLO-v4 Tiny foi escolhida por seu bom equilíbrio entre desempenho e precisão.</li>
-                        <li><strong>Segmentação por classe (coco.names):</strong> O modelo YOLO é configurado para focar apenas em classes relevantes, como carros, caminhões, motos e ônibus.</li>
-                        <li><strong>Pré-processamento de imagens:</strong> Aplicação de ajustes de brilho e contraste para melhorar a visibilidade das detecções.</li>
-                        <li><strong>Filtros de imagem:</strong> Implementação de filtros como blur, Gaussiano, mediano e bilateral para redução de ruídos e melhora na qualidade do frame.</li>
-                        <li><strong>Non-Maximum Suppression (NMS):</strong> Técnica usada para eliminar detecções redundantes, mantendo apenas as caixas com maior confiança.</li>
-                        <li><strong>Sobreposição de marcações visuais:</strong> Desenho de caixas delimitadoras ao redor dos veículos detectados e exibição das classes correspondentes.</li>
-                    </ul>
-                </section>
-            </main>
+        <section id="processamento-imagem">
+            <h2>8. Tipos de Processamento de Imagem Utilizados</h2>
+            <p>
+                Esta seção detalha as técnicas de processamento de imagem aplicadas no código:
+            </p>
+            <ul>
+                <li><strong>Modelo YOLO (You Only Look Once):</strong> Utilizado para detecção em tempo real de veículos em vídeos transmitidos por stream HLS. A arquitetura YOLO-v4 Tiny foi escolhida por seu bom equilíbrio entre desempenho e precisão.</li>
+                <li><strong>Segmentação por classe (coco.names):</strong> O modelo YOLO é configurado para focar apenas em classes relevantes, como carros, caminhões, motos e ônibus.</li>
+                <li><strong>Pré-processamento de imagens:</strong> Aplicação de ajustes de brilho e contraste para melhorar a visibilidade das detecções.</li>
+                <li><strong>Filtros de imagem:</strong> Implementação de filtros como blur, Gaussiano, mediano e bilateral para redução de ruídos e melhora na qualidade do frame.</li>
+                <li><strong>Non-Maximum Suppression (NMS):</strong> Técnica usada para eliminar detecções redundantes, mantendo apenas as caixas com maior confiança.</li>
+                <li><strong>Sobreposição de marcações visuais:</strong> Desenho de caixas delimitadoras ao redor dos veículos detectados e exibição das classes correspondentes.</li>
+            </ul>
+        </section>
+        <section id="demonstracao-video">
+            <h2>9. Demonstração do Programa</h2>
+            <p>
+                Abaixo está o vídeo demonstrativo do funcionamento do programa de detecção de veículos, utilizando as técnicas descritas anteriormente.
+            </p>
+            <video width="100%" controls>
+                <source src="funcinamento_record.mkv" type="video/mp4">
+                Seu navegador não suporta a exibição deste vídeo.
+            </video>
+        </section>    
         </body>
         </html>        
     </main>
