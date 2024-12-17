@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <title>Detecção de Veículos - Estudo de Estradas Brasileiras</title>
     <style>
         body {
@@ -22,16 +20,34 @@
         section {
             margin-bottom: 20px;
         }
+        .logo-faculdade {
+            width: 45px;
+            margin-right: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="./imagens/logotipo-ufabc-extenso.png">
-        <h1>Trabalho de Processamento de vídeo</h1>
+        <img src="./imagens/logotipo-ufabc-extenso.png" class="logo-faculdade">
+        <h1>Trabalho de Processamento de Vídeo</h1>
         <h2>Detecção de Veículos: Estudo de Estradas Brasileiras</h2>
     </header>
     <main>
-        <!-- Objetivos -->
         <section id="objetivos">
             <h2>1. Objetivos</h2>
             <p>Este trabalho tem como objetivos:</p>
@@ -41,8 +57,6 @@
                 <li>Desenvolver um sistema funcional para captura em tempo real e análise de vídeos.</li>
             </ul>
         </section>
-
-        <!-- Introdução -->
         <section id="introducao">
             <h2>2. Introdução</h2>
             <p>
@@ -51,8 +65,6 @@
                 vídeos de estradas brasileiras, contribuindo para a segurança e eficiência no transporte.
             </p>
         </section>
-
-        <!-- Contexto e Cenário de Aplicação -->
         <section id="contexto-cenario">
             <h2>3. Contexto e Cenário de Aplicação (CA)</h2>
             <p>
@@ -64,85 +76,112 @@
                 com maiores fluxos de veículos pesados.
             </p>
         </section>
-
-        <!-- Modelagem Funcional -->
-        <section id="modelagem-funcional">
-            <h2>4. Modelagem Funcional (MF)</h2>
-            <p>
-                A modelagem funcional do sistema envolve as seguintes etapas:
-            </p>
-            <ul>
-                <li>Seleção das melhores câmeras públicas de rodovias quanto À qualidade de imagem no site do DER/SP.</li>
-                <li>Pré-processamento de vídeos (filtragem e ajuste de cores).</li>
-                <li>Detecção de veículos utilizando técnicas de histograma e subtração de fundo.</li>
-                <li>Análise e contagem de veículos em tempo real.</li>
-            </ul>
-        </section>
-
-        <!-- Desenvolvimento do Sistema -->
-        <section id="desenvolvimento">
-            <h2>5. Desenvolvimento do Sistema (SPV)</h2>
-            <p>
-                O sistema será implementado em C++ utilizando a API OpenCV. Ele será testado em ambiente Ubuntu-Linux 
-                com vídeos gravados e capturas em tempo real usando câmeras disponibilizadas pelo governo estadual de SP. O código incluirá cabeçalhos detalhados, 
-                garantindo documentação clara e boas práticas.
-            </p>
-        </section>
-
-        <!-- Laboratório Experimental -->
-        <section id="laboratorio-experimental">
-            <h2>6. Laboratório Experimental (LEx)</h2>
-            <p>
-                O laboratório experimental será composto por experimentos que simulam condições reais de tráfego em 
-                estradas. Os roteiros incluirão instruções claras para uso do sistema e coleta de dados, voltados a 
-                usuários leigos.
-            </p>
-        </section>
-
-        <!-- Teste de Campo -->
         <section id="teste-campo">
             <h2>7. Teste de Campo (TC)</h2>
             <p>
-                O sistema será testado com usuários convidados, incluindo análise de vídeos de diferentes estradas. 
-                Os resultados serão coletados e analisados para avaliar a eficácia do sistema.
+                Durante a fase de Teste de Campo, usuários convidados responderam a um questionário sobre a experiência de uso do sistema. Abaixo estão as métricas obtidas com base nas respostas coletadas.
             </p>
-        </section>
 
-        <!-- Relatório Final -->
-        <section id="relatorio-final">
-            <h2>8. Relatório Final (RFT)</h2>
-            <p>
-                O relatório técnico incluirá todas as etapas do projeto, desde a concepção até os testes de campo. 
-                Os resultados serão apresentados em métricas objetivas e qualitativas, com conclusões detalhadas.
-            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pergunta</th>
+                        <th>Resposta</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Foi fácil entender como usar os botões de navegação?</td>
+                        <td>Sim</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Não</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Você conseguiu alternar entre as câmeras sem dificuldade?</td>
+                        <td>Sim</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Não</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>O que o sistema está detectando nas imagens?</td>
+                        <td>Veículos</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>Como o sistema indica a presença de veículos?</td>
+                        <td>Marcadores visuais (caixas ou destaques)</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Não sei</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Quantos veículos você encontrou na câmera com mais tráfego?</td>
+                        <td>3 ou mais</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>1-2</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>Você encontrou alguma câmera com veículos que não foram detectados?</td>
+                        <td>Sim</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Não</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>O que você achou mais interessante no sistema?</td>
+                        <td>Detecção de veículos</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Navegar entre câmeras</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>Avaliação geral</td>
+                        <td>Nota máxima</td>
+                        <td>6 (100%)</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
         </section>
-
-        <!-- Apresentação e Demo -->
-        <section id="demo">
-            <h2>9. Apresentação e Demo (DEM)</h2>
-            <p>
-                A apresentação incluirá slides com explicações técnicas, vídeos documentais e uma demonstração 
-                prática do sistema, tanto com vídeos gravados quanto em tempo real.
-            </p>
-        </section>
-
-        <!-- Seminário Final -->
-        <section id="seminario">
-            <h2>10. Seminário Final (SEMINAR)</h2>
-            <p>
-                No seminário final, o sistema será apresentado para a turma e avaliadores, com demonstrações práticas 
-                e espaço para discussão de resultados.
-            </p>
-        </section>
-
+                <section id="processamento-imagem">
+                    <h2>8. Tipos de Processamento de Imagem Utilizados</h2>
+                    <p>
+                        Esta seção detalha as técnicas de processamento de imagem aplicadas no código:
+                    </p>
+                    <ul>
+                        <li><strong>Modelo YOLO (You Only Look Once):</strong> Utilizado para detecção em tempo real de veículos em vídeos transmitidos por stream HLS. A arquitetura YOLO-v4 Tiny foi escolhida por seu bom equilíbrio entre desempenho e precisão.</li>
+                        <li><strong>Segmentação por classe (coco.names):</strong> O modelo YOLO é configurado para focar apenas em classes relevantes, como carros, caminhões, motos e ônibus.</li>
+                        <li><strong>Pré-processamento de imagens:</strong> Aplicação de ajustes de brilho e contraste para melhorar a visibilidade das detecções.</li>
+                        <li><strong>Filtros de imagem:</strong> Implementação de filtros como blur, Gaussiano, mediano e bilateral para redução de ruídos e melhora na qualidade do frame.</li>
+                        <li><strong>Non-Maximum Suppression (NMS):</strong> Técnica usada para eliminar detecções redundantes, mantendo apenas as caixas com maior confiança.</li>
+                        <li><strong>Sobreposição de marcações visuais:</strong> Desenho de caixas delimitadoras ao redor dos veículos detectados e exibição das classes correspondentes.</li>
+                    </ul>
+                </section>
+            </main>
+        </body>
+        </html>        
     </main>
-    <footer>
-        <p>Desenvolvido pela Equipe Triângulo. Todos os direitos reservados.</p>
-        <p>https://3d30a042367404fa.mediapackage.sa-east-1.amazonaws.com/out/v1/ea0b2a29932c4ba8b3459b7403eac5d3/CMAF_HLS/index.m3u8
-Rodar para compilar: g++ -o sample_stream sample_stream.cpp 'pkg-config --cflags --libs opencv4'
-
-sudo apt update
-sudo apt install libopencv-dev</p>
-    </footer>
 </body>
 </html>
